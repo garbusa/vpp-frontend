@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Checkbox, Collapse, Input, Modal, Select, Slider, Steps, Table} from "antd";
+import {Button, Checkbox, Collapse, Input, InputNumber, Modal, Popconfirm, Select, Slider, Steps, Table} from "antd";
 import history from "../../../../history";
 import {PlusOutlined} from '@ant-design/icons';
 
@@ -64,6 +64,7 @@ const AddProducerAndStorageComponent = observer((props) => {
                 store.masterdataStore.saveProducerToDpp(dto, store.masterdataStore.stepThreeState.dppId).then((result) => {
                     if (result.success) {
                         store.masterdataStore.stepThreeState.isAddingProducer = false;
+                        store.masterdataStore.resetStepThreeModals();
                         fetchHouseholds();
                         fetchDpps();
                         enqueueSnackbar(result.message, {variant: result.variant})
@@ -75,6 +76,7 @@ const AddProducerAndStorageComponent = observer((props) => {
                 store.masterdataStore.saveProducerToHousehold(dto, store.masterdataStore.stepThreeState.householdId).then((result) => {
                     if (result.success) {
                         store.masterdataStore.stepThreeState.isAddingProducer = false;
+                        store.masterdataStore.resetStepThreeModals();
                         fetchHouseholds();
                         fetchDpps();
                         enqueueSnackbar(result.message, {variant: result.variant})
@@ -106,6 +108,7 @@ const AddProducerAndStorageComponent = observer((props) => {
                 store.masterdataStore.saveStorageToDpp(dto, store.masterdataStore.stepThreeState.dppId).then((result) => {
                     if (result.success) {
                         store.masterdataStore.stepThreeState.isAddingStorage = false;
+                        store.masterdataStore.resetStepThreeModals();
                         fetchHouseholds();
                         fetchDpps();
                         enqueueSnackbar(result.message, {variant: result.variant})
@@ -117,6 +120,7 @@ const AddProducerAndStorageComponent = observer((props) => {
                 store.masterdataStore.saveStorageToHousehold(dto, store.masterdataStore.stepThreeState.householdId).then((result) => {
                     if (result.success) {
                         store.masterdataStore.stepThreeState.isAddingStorage = false;
+                        store.masterdataStore.resetStepThreeModals();
                         fetchHouseholds();
                         fetchDpps();
                         enqueueSnackbar(result.message, {variant: result.variant})
@@ -147,8 +151,8 @@ const AddProducerAndStorageComponent = observer((props) => {
         history.push('/erstellen/schritt-2');
     };
 
-    const onForward = () => {
-        store.masterdataStore.creatingState.step = 0;
+    const onEnd = () => {
+        store.masterdataStore.resetStateOnEnd();
         history.push('/erstellen');
     };
 
@@ -156,8 +160,8 @@ const AddProducerAndStorageComponent = observer((props) => {
         store.masterdataStore.stepThreeState.producerName = e.target.value;
     };
 
-    const onChangeProducerPower = (e) => {
-        store.masterdataStore.stepThreeState.producerPower = e.target.value;
+    const onChangeProducerPower = (value) => {
+        store.masterdataStore.stepThreeState.producerPower = value;
     };
 
     const onChangeProducerEnergyType = (value) => {
@@ -180,8 +184,8 @@ const AddProducerAndStorageComponent = observer((props) => {
         store.masterdataStore.stepThreeState.storageName = e.target.value;
     };
 
-    const onChangeStoragePower = (e) => {
-        store.masterdataStore.stepThreeState.storagePower = e.target.value;
+    const onChangeStoragePower = (value) => {
+        store.masterdataStore.stepThreeState.storagePower = value;
     };
 
     const onChangeStorageEnergyType = (value) => {
@@ -319,22 +323,33 @@ const AddProducerAndStorageComponent = observer((props) => {
             <Button onClick={onBack} type="primary">
                 Zurück zu Schritt 3
             </Button>
-            <Button onClick={onForward} type="primary">
-                Prozess abschließen
-            </Button>
-
+            <Popconfirm
+                title="Möchtest du diesen Prozess wirklich beenden?"
+                onConfirm={onEnd}
+                onCancel={() => {
+                }}
+                okText="Ja"
+                cancelText="Nein"
+            >
+                <Button type="primary">
+                    Prozess abschließen
+                </Button>
+            </Popconfirm>
 
             <Modal title="Erzeugungsanlage hinzufügen" visible={store.masterdataStore.stepThreeState.isAddingProducer}
                    onOk={acceptAddProducer}
                    onCancel={cancelAddProducer}>
                 <p>Bitte pflege die Daten für die Erzeugungsanlage ein.</p>
-                <Input onChange={onChangeProducerName} placeholder="Name der Erzeugungsanlage"/>
-                <Input onChange={onChangeProducerPower} placeholder="Leistung"/>
+                <Input value={store.masterdataStore.stepThreeState.producerName} onChange={onChangeProducerName}
+                       placeholder="Name der Erzeugungsanlage"/>
+                <InputNumber value={store.masterdataStore.stepThreeState.producerPower} onChange={onChangeProducerPower}
+                             placeholder="Leistung"/>
                 <Select
                     showSearch
                     style={{width: 200}}
                     placeholder="Art der Anlage"
                     onChange={onChangeProducerType}
+                    value={store.masterdataStore.stepThreeState.producerType}
                 >
                     <Option value="WIND">Windenergie</Option>
                     <Option value="SOLAR">Solarenergie</Option>
@@ -346,31 +361,38 @@ const AddProducerAndStorageComponent = observer((props) => {
                     style={{width: 200}}
                     placeholder="Energieoutput"
                     onChange={onChangeProducerEnergyType}
+                    value={store.masterdataStore.stepThreeState.producerEnergyType}
                 >
                     <Option value="ELECTRICITY">Elektrische Energie</Option>
                     <Option value="HEAT">Thermische Energie</Option>
                 </Select>
-                <Checkbox onChange={onChangeProducerIsRunning}>Anlage läuft?</Checkbox>
+                <Checkbox checked={store.masterdataStore.stepThreeState.producerIsRunning}
+                          onChange={onChangeProducerIsRunning}>Anlage läuft?</Checkbox>
                 Kapazität
-                <Slider defaultValue={100} onChange={onChangeProducerCapacity}/>
+                <Slider value={store.masterdataStore.stepThreeState.producerCapacity} defaultValue={100}
+                        onChange={onChangeProducerCapacity}/>
             </Modal>
             <Modal title="Speicherungsanlage hinzufügen" visible={store.masterdataStore.stepThreeState.isAddingStorage}
                    onOk={acceptAddStorage}
                    onCancel={cancelAddStorage}>
                 <p>Bitte pflege die Daten für die Speicheranlage ein.</p>
-                <Input onChange={onChangeStorageName} placeholder="Name der Speicheranlage"/>
-                <Input onChange={onChangeStoragePower} placeholder="Leistung"/>
+                <Input value={store.masterdataStore.stepThreeState.storageName} onChange={onChangeStorageName}
+                       placeholder="Name der Speicheranlage"/>
+                <InputNumber value={store.masterdataStore.stepThreeState.storagePower} onChange={onChangeStoragePower}
+                             placeholder="Leistung"/>
                 <Select
                     showSearch
                     style={{width: 200}}
                     placeholder="Art des Energiespeichers"
                     onChange={onChangeStorageEnergyType}
+                    value={store.masterdataStore.stepThreeState.storageEnergyType}
                 >
                     <Option value="ELECTRICITY">Elektrische Energie</Option>
                     <Option value="HEAT">Thermische Energie</Option>
                 </Select>
                 Aktuelle Speicherkapazität
-                <Slider defaultValue={100} onChange={onChangeStorageCapacity}/>
+                <Slider value={store.masterdataStore.stepThreeState.storageCapacity} defaultValue={100}
+                        onChange={onChangeStorageCapacity}/>
             </Modal>
         </div>
 

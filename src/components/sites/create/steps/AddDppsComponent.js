@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Input, Modal, Steps, Table} from "antd";
+import {Button, Input, Modal, Popconfirm, Steps, Table} from "antd";
 import history from "../../../../history";
 import {PlusOutlined} from '@ant-design/icons';
 
@@ -43,6 +43,7 @@ const AddDppsComponent = observer((props) => {
             store.masterdataStore.saveDpp(dto, store.masterdataStore.creatingState.vppId).then((result) => {
                 if (result.success) {
                     store.masterdataStore.stepOneState.isAddingDpp = false;
+                    store.masterdataStore.resetStepOneModals();
                     fetchDpps();
                     enqueueSnackbar(result.message, {variant: result.variant})
                 } else {
@@ -72,7 +73,7 @@ const AddDppsComponent = observer((props) => {
     };
 
     const onEnd = () => {
-        store.masterdataStore.creatingState.step = 0;
+        store.masterdataStore.resetStateOnEnd();
         history.push('/erstellen');
     };
 
@@ -101,9 +102,18 @@ const AddDppsComponent = observer((props) => {
             <Button onClick={onOpenAddDppModal} type="primary" icon={<PlusOutlined/>}>
                 Dez. Kraftwerk hinzufügen
             </Button>
-            <Button onClick={onEnd} type="primary">
-                Prozess beenden
-            </Button>
+            <Popconfirm
+                title="Möchtest du diesen Prozess wirklich beenden?"
+                onConfirm={onEnd}
+                onCancel={() => {
+                }}
+                okText="Ja"
+                cancelText="Nein"
+            >
+                <Button type="primary">
+                    Prozess beenden
+                </Button>
+            </Popconfirm>
             <Button onClick={onForward} type="primary">
                 Weiter zu Schritt 2
             </Button>
@@ -113,7 +123,8 @@ const AddDppsComponent = observer((props) => {
                 <p>Ein dez. Kraftwerk besteht zunächst nur aus einem Namen. Diesem Kraftwerk werden in den nächsten
                     Schritten
                     Erzeugungsanlagen und Speichersysteme hinzugefügt.</p>
-                <Input onChange={(e) => onDppNameChange(e)} placeholder="Name des dez. Kraftwerks"/>
+                <Input value={store.masterdataStore.stepOneState.dppName} onChange={(e) => onDppNameChange(e)}
+                       placeholder="Name des dez. Kraftwerks"/>
             </Modal>
         </div>
 

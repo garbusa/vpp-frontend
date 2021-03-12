@@ -31,20 +31,25 @@ const initialValues = {
     dpps: [],
     isLoading: false,
 
+    confirmationDialog: {
+        isOpen: false,
+        result: undefined,
+    },
+
     creatingState: {
         step: 0,
-        vppId: null
+        vppId: undefined
     },
 
     stepOneState: {
         isAddingDpp: false,
-        dppName: '',
+        dppName: undefined,
     },
 
     stepTwoState: {
         isAddingHousehold: false,
-        householdName: '',
-        householdAmount: 0,
+        householdName: undefined,
+        householdAmount: undefined,
     },
 
     stepThreeState: {
@@ -52,16 +57,16 @@ const initialValues = {
         isAddingStorage: false,
         isAddingToDpp: false,
         isAddingToHousehold: false,
-        producerName: '',
-        producerPower: -1,
-        producerEnergyType: '',
-        producerCapacity: -1,
-        producerIsRunning: false,
-        producerType: '',
-        storageName: '',
-        storagePower: -1,
-        storageEnergyType: '',
-        storageCapacity: -1
+        producerName: undefined,
+        producerPower: undefined,
+        producerEnergyType: undefined,
+        producerCapacity: 100,
+        producerIsRunning: undefined,
+        producerType: undefined,
+        storageName: undefined,
+        storagePower: undefined,
+        storageEnergyType: undefined,
+        storageCapacity: 100
     },
 
 
@@ -75,7 +80,38 @@ const MasterdataContext = () => {
 
     const store = useLocalObservable(() => ({
         ...initialValues,
+        resetConfirmationDialog: async () => {
+            store.confirmationDialog.isOpen = initialValues.confirmationDialog.isOpen;
+            store.confirmationDialog.result = initialValues.confirmationDialog.result;
+        },
+        resetStateOnEnd: async () => {
+            store.vpps = initialValues.vpps;
+            store.dpps = initialValues.dpps;
+            store.creatingState = initialValues.creatingState;
+            store.stepOneState = initialValues.stepOneState;
+            store.stepTwoState = initialValues.stepTwoState;
+            store.stepThreeState = initialValues.stepThreeState;
+        },
+        resetStepOneModals: async () => {
+            store.stepOneState.dppName = initialValues.stepOneState.dppName;
+        },
+        resetStepTwoModals: async () => {
+            store.stepTwoState.householdName = initialValues.stepTwoState.householdName;
+            store.stepTwoState.householdAmount = initialValues.stepTwoState.householdAmount;
+        },
+        resetStepThreeModals: async () => {
+            store.stepThreeState.producerCapacity = initialValues.stepThreeState.producerCapacity;
+            store.stepThreeState.producerEnergyType = initialValues.stepThreeState.producerEnergyType;
+            store.stepThreeState.producerIsRunning = initialValues.stepThreeState.producerIsRunning;
+            store.stepThreeState.producerName = initialValues.stepThreeState.producerName;
+            store.stepThreeState.producerPower = initialValues.stepThreeState.producerPower;
+            store.stepThreeState.producerType = initialValues.stepThreeState.producerType;
 
+            store.stepThreeState.storageCapacity = initialValues.stepThreeState.storageCapacity;
+            store.stepThreeState.storageEnergyType = initialValues.stepThreeState.storageEnergyType;
+            store.stepThreeState.storageName = initialValues.stepThreeState.storageName;
+            store.stepThreeState.storagePower = initialValues.stepThreeState.storagePower;
+        },
         getAllVppsAction: async () => {
             store.isLoading = true;
 

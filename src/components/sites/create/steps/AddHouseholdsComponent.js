@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Input, Modal, Steps, Table} from "antd";
+import {Button, Input, InputNumber, Modal, Popconfirm, Steps, Table} from "antd";
 import history from "../../../../history";
 import {PlusOutlined} from '@ant-design/icons';
 
@@ -54,6 +54,7 @@ const AddHouseholdsComponent = observer((props) => {
             store.masterdataStore.saveHousehold(dto, store.masterdataStore.creatingState.vppId).then((result) => {
                 if (result.success) {
                     store.masterdataStore.stepTwoState.isAddingHousehold = false;
+                    store.masterdataStore.resetStepTwoModals();
                     fetchHouseholds();
                     enqueueSnackbar(result.message, {variant: result.variant})
                 } else {
@@ -77,8 +78,8 @@ const AddHouseholdsComponent = observer((props) => {
         store.masterdataStore.stepTwoState.householdName = e.target.value;
     };
 
-    const onHouseholdAmountChange = (e) => {
-        store.masterdataStore.stepTwoState.householdAmount = e.target.value;
+    const onHouseholdAmountChange = (value) => {
+        store.masterdataStore.stepTwoState.householdAmount = value;
     };
 
     const onForward = () => {
@@ -92,7 +93,7 @@ const AddHouseholdsComponent = observer((props) => {
     };
 
     const onEnd = () => {
-        store.masterdataStore.creatingState.step = 0;
+        store.masterdataStore.resetStateOnEnd();
         history.push('/erstellen');
     };
 
@@ -121,9 +122,16 @@ const AddHouseholdsComponent = observer((props) => {
             <Button onClick={onOpenAddHouseholdModal} type="primary" icon={<PlusOutlined/>}>
                 Haushalt hinzufügen
             </Button>
-            <Button onClick={onEnd} type="primary">
-                Prozess beenden
-            </Button>
+            <Popconfirm
+                title="Möchtest du diesen Prozess wirklich beenden?"
+                onConfirm={onEnd}
+                okText="Ja"
+                cancelText="Nein"
+            >
+                <Button type="primary">
+                    Prozess beenden
+                </Button>
+            </Popconfirm>
             <Button onClick={onBack} type="primary">
                 Zurück zu Schritt 2
             </Button>
@@ -135,8 +143,10 @@ const AddHouseholdsComponent = observer((props) => {
                    onOk={acceptAddHousehold}
                    onCancel={cancelAddHousehold}>
                 <p>Ein Haushalt besteht aus einem eindeutigem Namen und die Anzahl der Haushaltsmitglieder.</p>
-                <Input onChange={(e) => onHouseholdNameChange(e)} placeholder="Name des Haushaltes"/>
-                <Input onChange={(e) => onHouseholdAmountChange(e)} placeholder="Anzahl der Haushaltsmitglieder"/>
+                <Input value={store.masterdataStore.stepTwoState.householdName}
+                       onChange={(e) => onHouseholdNameChange(e)} placeholder="Name des Haushaltes"/>
+                <InputNumber value={store.masterdataStore.stepTwoState.householdAmount}
+                             onChange={(e) => onHouseholdAmountChange(e)} placeholder="Anzahl der Haushaltsmitglieder"/>
             </Modal>
         </div>
 

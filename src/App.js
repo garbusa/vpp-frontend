@@ -22,7 +22,7 @@ function App() {
             <Sider collapsible collapsed={collapsed} onCollapse={setCollapse} style={{backgroundColor: '#00406B'}}>
                 {!collapsed &&
                 <img style={{padding: '16px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}
-                     src={'logo.svg'} alt={"Logo Universität Oldenburg"}/>
+                     src={'logo.png'} alt={"Logo Universität Oldenburg"}/>
                 }
                 <Menu theme={"dark"} defaultSelectedKeys={[window.location.pathname]} mode="inline">
                     <Menu.Item key="/" icon={<DesktopOutlined/>}>
