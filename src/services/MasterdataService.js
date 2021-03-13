@@ -56,9 +56,9 @@ export async function deleteDppById(businessKey, vppBusinessKey) {
         + "?vppBusinessKey=" + vppBusinessKey)
 }
 
-export async function updateDppById(businessKey, vppBusinessKey, dto) {
+export async function updateDppById(dto, vppBusinessKey) {
     return await axios.put(API_ENTRYPOINT +
-        "/dpp" + "/" + businessKey
+        "/dpp" + "/" + dto.decentralizedPowerPlantId
         + "?vppBusinessKey=" + vppBusinessKey, dto)
 }
 

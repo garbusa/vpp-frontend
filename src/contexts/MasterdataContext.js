@@ -29,14 +29,15 @@ function autoSave(_this, name) {
 const initialValues = {
     vpps: [],
     dpps: [],
+    households: [],
     isLoading: false,
 
-    confirmationDialog: {
-        isOpen: false,
-        result: undefined,
+    creatingState: {
+        step: 0,
+        vppId: undefined
     },
 
-    creatingState: {
+    editState: {
         step: 0,
         vppId: undefined
     },
@@ -80,10 +81,6 @@ const MasterdataContext = () => {
 
     const store = useLocalObservable(() => ({
         ...initialValues,
-        resetConfirmationDialog: async () => {
-            store.confirmationDialog.isOpen = initialValues.confirmationDialog.isOpen;
-            store.confirmationDialog.result = initialValues.confirmationDialog.result;
-        },
         resetStateOnEnd: async () => {
             store.vpps = initialValues.vpps;
             store.dpps = initialValues.dpps;
@@ -91,6 +88,7 @@ const MasterdataContext = () => {
             store.stepOneState = initialValues.stepOneState;
             store.stepTwoState = initialValues.stepTwoState;
             store.stepThreeState = initialValues.stepThreeState;
+            store.editState = initialValues.editState;
         },
         resetStepOneModals: async () => {
             store.stepOneState.dppName = initialValues.stepOneState.dppName;
@@ -260,6 +258,21 @@ const MasterdataContext = () => {
             );
         },
         saveStorageToHousehold: async (dto, householdBusinessKey) => {
+            return await saveStorageToHousehold(dto, householdBusinessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        editDpp: async (dto, virtualPowerPlantId) => {
             return await saveStorageToHousehold(dto, householdBusinessKey).then(
                 (response) => {
                     let result = response.data;

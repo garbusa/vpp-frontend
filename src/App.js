@@ -10,6 +10,7 @@ import CreateComponent from "./components/sites/create/CreateComponent";
 import AddDppsComponent from "./components/sites/create/steps/AddDppsComponent";
 import AddHouseholdsComponent from "./components/sites/create/steps/AddHouseholdsComponent";
 import AddProducerAndStorageComponent from "./components/sites/create/steps/AddProducerAndStorageComponent";
+import EditComponent from "./components/sites/edit/EditComponent";
 
 const {Header, Content, Footer, Sider} = Layout;
 const {SubMenu} = Menu;
@@ -56,6 +57,9 @@ function App() {
                         </Route>
                         <Route exact path="/erstellen/schritt-3"
                                render={(props) => <AddProducerAndStorageComponent/>}>
+                        </Route>
+                        <Route exact path="/bearbeiten"
+                               render={(props) => <EditComponent/>}>
                         </Route>
                     </Switch>
                 </Content>
