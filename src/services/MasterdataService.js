@@ -56,9 +56,9 @@ export async function deleteDppById(businessKey, vppBusinessKey) {
         + "?vppBusinessKey=" + vppBusinessKey)
 }
 
-export async function updateDppById(dto, vppBusinessKey) {
+export async function updateDppById(dppBusinessKey, vppBusinessKey, dto) {
     return await axios.put(API_ENTRYPOINT +
-        "/dpp" + "/" + dto.decentralizedPowerPlantId
+        "/dpp" + "/" + dppBusinessKey
         + "?vppBusinessKey=" + vppBusinessKey, dto)
 }
 
@@ -74,7 +74,7 @@ export async function getHouseholdById(businessKey) {
     return await axios.get(API_ENTRYPOINT + "/household" + "/" + businessKey)
 }
 
-export async function saveHouseholdToVpp(dto, vppBusinessKey) {
+export async function saveHouseholdToVpp(vppBusinessKey, dto) {
     return await axios.post(API_ENTRYPOINT + "/household/by/vpp" + "/" + vppBusinessKey, dto)
 }
 
@@ -164,5 +164,5 @@ export async function deleteStorageById(businessKey, vppBusinessKey) {
 
 export async function updateStorageById(businessKey, vppBusinessKey, dto) {
     return await axios.put(API_ENTRYPOINT +
-        "/Storage" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
+        "/storage" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
 }

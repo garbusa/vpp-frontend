@@ -51,7 +51,7 @@ const AddHouseholdsComponent = observer((props) => {
                     householdId: store.masterdataStore.stepTwoState.householdName,
                     householdMemberAmount: store.masterdataStore.stepTwoState.householdAmount
                 };
-            store.masterdataStore.saveHousehold(dto, store.masterdataStore.creatingState.vppId).then((result) => {
+            store.masterdataStore.saveHousehold(store.masterdataStore.creatingState.vppId, dto).then((result) => {
                 if (result.success) {
                     store.masterdataStore.stepTwoState.isAddingHousehold = false;
                     store.masterdataStore.resetStepTwoModals();

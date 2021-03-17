@@ -1,16 +1,33 @@
 import React, {useEffect} from "react"
 import {useLocalObservable} from "mobx-react-lite"
 import {
+    deleteDppById,
+    deleteHouseholdById,
+    deleteProducerById,
+    deleteStorageById,
+    deleteVppById,
     getAllDppByVppId,
     getAllHouseholdByVppId,
     getAllVpps,
+    getDppById,
+    getHouseholdById,
+    getProducerById,
+    getStorageById,
+    getVppById,
+    publishVppById,
     saveDppToVpp,
     saveHouseholdToVpp,
     saveProducerToDpp,
     saveProducerToHousehold,
     saveStorageToDpp,
     saveStorageToHousehold,
-    saveVpp
+    saveVpp,
+    unpublishVppById,
+    updateDppById,
+    updateHouseholdById,
+    updateProducerById,
+    updateStorageById,
+    updateVppById
 } from "../services/MasterdataService"
 import {autorun, set, toJS} from "mobx";
 
@@ -39,7 +56,50 @@ const initialValues = {
 
     editState: {
         step: 0,
-        vppId: undefined
+        vppId: undefined,
+        dppId: undefined,
+        householdId: undefined,
+        producerId: undefined,
+        storageId: undefined,
+        isEditingVpp: false,
+        isEditingDpp: false,
+        isEditingHousehold: false,
+        isEditingProducer: false,
+        isEditingStorage: false,
+        isAddingVpp: false,
+        isAddingDpp: false,
+        isAddingHousehold: false,
+        isAddingProducer: false,
+        isAddingStorage: false,
+
+        isAddingToDpp: false,
+        isAddingToHousehold: false,
+
+        vpp: {
+            virtualPowerPlantId: undefined
+        },
+        dpp: {
+            dezentralizedPowerPlantId: undefined
+        },
+        household: {
+            householdId: undefined,
+            householdMemberAmount: undefined,
+        },
+        producer: {
+            producerId: undefined,
+            ratedPower: undefined,
+            productType: undefined,
+            energyType: undefined,
+            isRunning: undefined,
+            capacity: undefined
+        },
+        storage: {
+            storageId: undefined,
+            ratedPower: undefined,
+            energyType: undefined,
+            capacity: undefined
+        }
+
     },
 
     stepOneState: {
@@ -110,6 +170,13 @@ const MasterdataContext = () => {
             store.stepThreeState.storageName = initialValues.stepThreeState.storageName;
             store.stepThreeState.storagePower = initialValues.stepThreeState.storagePower;
         },
+        resetEditStates: async () => {
+            store.editState.vpp = initialValues.editState.vpp;
+            store.editState.dpp = initialValues.editState.dpp;
+            store.editState.household = initialValues.editState.household;
+            store.editState.producer = initialValues.editState.producer;
+            store.editState.storage = initialValues.editState.storage;
+        },
         getAllVppsAction: async () => {
             store.isLoading = true;
 
@@ -130,6 +197,22 @@ const MasterdataContext = () => {
                 }
             );
         },
+        getVppById: async (vppId) => {
+            return await getVppById(vppId).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.vpp = result.data;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
         saveVpp: async (dto) => {
             return await saveVpp(dto).then(
                 (response) => {
@@ -140,6 +223,68 @@ const MasterdataContext = () => {
                             step: 1,
                             vppId: dto.virtualPowerPlantId
                         };
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        updateVpp: async (businessKey, dto) => {
+            return await updateVppById(businessKey, dto).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.vppId = dto.virtualPowerPlantId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        deleteVpp: async (businessKey) => {
+            return await deleteVppById(businessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.vppId = undefined;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        publishVpp: async (businessKey) => {
+            return await publishVppById(businessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        unpublishVpp: async (businessKey) => {
+            return await unpublishVppById(businessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
                         return {success: result.success, message: result.message, variant: "success"}
                     } else {
                         return {success: result.success, message: result.message, variant: "error"}
@@ -181,8 +326,56 @@ const MasterdataContext = () => {
                 }
             );
         },
-        saveHousehold: async (dto, vppBusinessKey) => {
-            return await saveHouseholdToVpp(dto, vppBusinessKey).then(
+        getDppById: async (dppId) => {
+            return await getDppById(dppId).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.dpp.decentralizedPowerPlantId = result.data.decentralizedPowerPlantId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        updateDpp: async (dppBusinessKey, vppBusinessKey, dto) => {
+            return await updateDppById(dppBusinessKey, vppBusinessKey, dto).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.dppId = dto.decentralizedPowerPlantId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        deleteDpp: async (businessKey, vppBusinessKey) => {
+            return await deleteDppById(businessKey, vppBusinessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.dppId = undefined;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        saveHousehold: async (vppBusinessKey, dto) => {
+            return await saveHouseholdToVpp(vppBusinessKey, dto).then(
                 (response) => {
                     let result = response.data;
                     if (result.success) {
@@ -202,6 +395,55 @@ const MasterdataContext = () => {
                     let result = response.data;
                     if (result.success) {
                         store.households = result.data;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        getHouseholdById: async (householdId) => {
+            return await getHouseholdById(householdId).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.household.householdId = result.data.householdId;
+                        store.editState.household.householdMemberAmount = result.data.householdMemberAmount;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        updateHousehold: async (householdBusinessKey, vppBusinessKey, dto) => {
+            return await updateHouseholdById(householdBusinessKey, vppBusinessKey, dto).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.householdId = dto.householdId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        deleteHousehold: async (businessKey, vppBusinessKey) => {
+            return await deleteHouseholdById(businessKey, vppBusinessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.householdId = undefined;
                         return {success: result.success, message: result.message, variant: "success"}
                     } else {
                         return {success: result.success, message: result.message, variant: "error"}
@@ -257,6 +499,54 @@ const MasterdataContext = () => {
                 }
             );
         },
+        getProducerById: async (producerId) => {
+            return await getProducerById(producerId).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.producer = result.data;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        updateProducer: async (producerBusinessKey, vppBusinessKey, dto) => {
+            return await updateProducerById(producerBusinessKey, vppBusinessKey, dto).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.producerId = dto.producerId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        deleteProducer: async (businessKey, vppBusinessKey) => {
+            return await deleteProducerById(businessKey, vppBusinessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.producerId = undefined;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
         saveStorageToHousehold: async (dto, householdBusinessKey) => {
             return await saveStorageToHousehold(dto, householdBusinessKey).then(
                 (response) => {
@@ -272,11 +562,44 @@ const MasterdataContext = () => {
                 }
             );
         },
-        editDpp: async (dto, virtualPowerPlantId) => {
-            return await saveStorageToHousehold(dto, householdBusinessKey).then(
+        getStorageById: async (storageId) => {
+            return await getStorageById(storageId).then(
                 (response) => {
                     let result = response.data;
                     if (result.success) {
+                        store.editState.storage = result.data;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        updateStorage: async (storageBusinessKey, vppBusinessKey, dto) => {
+            return await updateStorageById(storageBusinessKey, vppBusinessKey, dto).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.storageId = dto.storageId;
+                        return {success: result.success, message: result.message, variant: "success"}
+                    } else {
+                        return {success: result.success, message: result.message, variant: "error"}
+                    }
+                }, (error) => {
+                    let result = error.response.data;
+                    return {success: result.success, message: result.message, variant: "error"}
+                }
+            );
+        },
+        deleteStorage: async (businessKey, vppBusinessKey) => {
+            return await deleteStorageById(businessKey, vppBusinessKey).then(
+                (response) => {
+                    let result = response.data;
+                    if (result.success) {
+                        store.editState.storageId = undefined;
                         return {success: result.success, message: result.message, variant: "success"}
                     } else {
                         return {success: result.success, message: result.message, variant: "error"}
