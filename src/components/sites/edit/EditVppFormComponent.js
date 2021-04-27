@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Checkbox, Collapse, Input, InputNumber, Modal, Popconfirm, Select, Slider, Space, Table} from "antd";
+import {Button, Collapse, Input, InputNumber, Modal, Popconfirm, Select, Slider, Space, Table} from "antd";
 import {CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, PlusOutlined} from '@ant-design/icons';
 
 const EditVppFormComponent = observer((props) => {
@@ -59,11 +59,11 @@ const EditVppFormComponent = observer((props) => {
         return (
             <div>
                 <Space size="middle">
-                    <Button onClick={() => onOpenEditProducer(props.producerId)} type="primary"
+                    <Button onClick={() => onOpenEditProducer(props.producerId, props.type)} type="primary"
                             icon={<EditOutlined/>}/>
                     <Popconfirm
                         title="Möchtest du die Erzeugungsanlage wirklich löschen?"
-                        onConfirm={() => onDeleteProducer(props.producerId)}
+                        onConfirm={() => onDeleteProducer(props.producerId, props.type)}
                         okText="Ja"
                         cancelText="Nein"
                     >
@@ -102,10 +102,15 @@ const EditVppFormComponent = observer((props) => {
             key: 'producerId',
         },
         {
+            title: 'Typ',
+            dataIndex: 'type',
+            key: 'type',
+        },
+        {
             title: 'Aktionen',
             key: 'actions',
             render: (record) => (
-                <ProducerActions producerId={record.producerId}/>
+                <ProducerActions producerId={record.producerId} type={record.type}/>
             ),
         },
     ];
@@ -156,29 +161,111 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.editState.householdId = householdId;
     };
 
-    const onChangeProducerName = (e) => {
-        store.masterdataStore.editState.producer.producerId = e.target.value;
+    const onChangeWaterEnergyId = (e) => {
+        store.masterdataStore.editState.waterEnergy.waterEnergyId = e.target.value;
     };
 
-    const onChangeProducerPower = (value) => {
-        store.masterdataStore.editState.producer.ratedPower = value;
+    const onChangeWaterEnergyEfficiency = (value) => {
+        store.masterdataStore.editState.waterEnergy.efficiency = value;
     };
 
-    const onChangeProducerEnergyType = (value) => {
-        store.masterdataStore.editState.producer.energyType = value;
+    const onChangeWaterEnergyCapacity = (value) => {
+        store.masterdataStore.editState.waterEnergy.capacity = value;
     };
 
-    const onChangeProducerCapacity = (value) => {
-        store.masterdataStore.editState.producer.capacity = value;
+    const onChangeWaterEnergyRunning = (e) => {
+        store.masterdataStore.editState.waterEnergy.running = e.target.checked;
     };
 
-    const onChangeProducerType = (value) => {
-        store.masterdataStore.editState.producer.productType = value;
+    const onChangeWaterEnergyDensity = (value) => {
+        store.masterdataStore.editState.waterEnergy.density = value;
     };
 
-    const onChangeProducerIsRunning = (e) => {
-        store.masterdataStore.editState.producer.isRunning = e.target.checked;
+    const onChangeWaterEnergyGravity = (value) => {
+        store.masterdataStore.editState.waterEnergy.gravity = value;
     };
+
+    const onChangeWaterEnergyHeight = (value) => {
+        store.masterdataStore.editState.waterEnergy.height = value;
+    };
+
+    const onChangeWaterEnergyVolumeFlow = (value) => {
+        store.masterdataStore.editState.waterEnergy.volumeFlow = value;
+    };
+
+    const onChangeWindEnergyId = (e) => {
+        store.masterdataStore.editState.windEnergy.windEnergyId = e.target.value;
+    };
+
+    const onChangeWindEnergyEfficiency = (value) => {
+        store.masterdataStore.editState.windEnergy.efficiency = value;
+    };
+
+    const onChangeWindEnergyCapacity = (value) => {
+        store.masterdataStore.editState.windEnergy.capacity = value;
+    };
+
+    const onChangeWindEnergyRunning = (e) => {
+        store.masterdataStore.editState.windEnergy.running = e.target.checked;
+    };
+
+    const onChangeWindEnergyLatitude = (value) => {
+        store.masterdataStore.editState.windEnergy.latitude = value;
+    };
+
+    const onChangeWindEnergyLongitude = (value) => {
+        store.masterdataStore.editState.windEnergy.longitude = value;
+    };
+
+    const onChangeWindEnergyHeight = (value) => {
+        store.masterdataStore.editState.windEnergy.height = value;
+    };
+
+    const onChangeWindEnergyRadius = (value) => {
+        store.masterdataStore.editState.windEnergy.radius = value;
+    };
+
+    const onChangeSolarEnergyId = (e) => {
+        store.masterdataStore.editState.solarEnergy.solarEnergyId = e.target.value;
+    };
+
+    const onChangeSolarEnergyRatedCapacity = (value) => {
+        store.masterdataStore.editState.solarEnergy.ratedCapacity = value;
+    };
+
+    const onChangeSolarEnergyCapacity = (value) => {
+        store.masterdataStore.editState.solarEnergy.capacity = value;
+    };
+
+
+    const onChangeSolarEnergyLatitude = (value) => {
+        store.masterdataStore.editState.solarEnergy.latitude = value;
+    };
+
+    const onChangeSolarEnergyLongitude = (value) => {
+        store.masterdataStore.editState.solarEnergy.longitude = value;
+    };
+
+    const onChangeSolarEnergyAlignment = (value) => {
+        store.masterdataStore.editState.solarEnergy.alignment = value;
+    };
+
+    const onChangeSolarEnergySlope = (value) => {
+        store.masterdataStore.editState.solarEnergy.slope = value;
+    };
+
+    const onChangeOtherEnergyId = (e) => {
+        store.masterdataStore.editState.otherEnergy.otherEnergyId = e.target.value;
+    };
+
+    const onChangeOtherEnergyRatedCapacity = (value) => {
+        store.masterdataStore.editState.otherEnergy.ratedCapacity = value;
+    };
+
+    const onChangeOtherEnergyCapacity = (value) => {
+        store.masterdataStore.editState.otherEnergy.capacity = value;
+    };
+
 
     const onChangeStorageName = (e) => {
         store.masterdataStore.editState.storage.storageId = e.target.value;
@@ -188,37 +275,58 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.editState.storage.ratedPower = value;
     };
 
-    const onChangeStorageEnergyType = (value) => {
-        store.masterdataStore.editState.storage.energyType = value;
+    const onChangeStorageLoadTimeHour = (value) => {
+        store.masterdataStore.editState.storage.loadTimeHour = value;
     };
 
     const onChangeStorageCapacity = (value) => {
         store.masterdataStore.editState.storage.capacity = value;
     };
 
-    const cancelAddOrEditProducer = () => {
-        store.masterdataStore.editState.isAddingProducer = false;
-        store.masterdataStore.editState.isEditingProducer = false;
+    const cancelAddOrEditWater = () => {
+        store.masterdataStore.editState.isAddingWater = false;
+        store.masterdataStore.editState.isEditingWater = false;
+        store.masterdataStore.resetEditStates();
     };
 
+    const cancelAddOrEditWind = () => {
+        store.masterdataStore.editState.isAddingWind = false;
+        store.masterdataStore.editState.isEditingWind = false;
+        store.masterdataStore.resetEditStates();
+    };
+
+    const cancelAddOrEditSolar = () => {
+        store.masterdataStore.editState.isAddingSolar = false;
+        store.masterdataStore.editState.isEditingSolar = false;
+        store.masterdataStore.resetEditStates();
+    };
+
+
+    const cancelAddOrEditOther = () => {
+        store.masterdataStore.editState.isAddingOther = false;
+        store.masterdataStore.editState.isEditingOther = false;
+        store.masterdataStore.resetEditStates();
+    };
 
     const cancelAddOrEditStorage = () => {
         store.masterdataStore.editState.isAddingStorage = false;
         store.masterdataStore.editState.isEditingStorage = false;
+        store.masterdataStore.resetEditStates();
     };
 
-    const acceptAddOrEditProducer = () => {
+    const acceptAddOrEditWater = () => {
         //todo validation
-        if (store.masterdataStore.editState.producer.producerId !== '' &&
-            store.masterdataStore.editState.producer.producerId.length > 0) {
-            let dto = store.masterdataStore.editState.producer;
+        if (store.masterdataStore.editState.waterEnergy.waterEnergyId !== '' &&
+            store.masterdataStore.editState.waterEnergy.waterEnergyId.length > 0) {
+            let dto = store.masterdataStore.editState.waterEnergy;
 
-            if (store.masterdataStore.editState.isAddingProducer) {
+            if (store.masterdataStore.editState.isAddingWater) {
                 if (store.masterdataStore.editState.isAddingToDpp) {
-                    store.masterdataStore.saveProducerToDpp(dto, store.masterdataStore.editState.dppId).then((result) => {
+                    store.masterdataStore.saveWaterToDpp(dto, store.masterdataStore.editState.dppId).then((result) => {
                         if (result.success) {
                             fetchDpps();
                             store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingWater = false;
                             store.masterdataStore.resetEditStates();
                             enqueueSnackbar(result.message, {variant: result.variant})
                         } else {
@@ -226,9 +334,10 @@ const EditVppFormComponent = observer((props) => {
                         }
                     });
                 } else if (store.masterdataStore.editState.isAddingToHousehold) {
-                    store.masterdataStore.saveProducerToHousehold(dto, store.masterdataStore.editState.householdId).then((result) => {
+                    store.masterdataStore.saveWaterToHousehold(dto, store.masterdataStore.editState.householdId).then((result) => {
                         if (result.success) {
                             store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingWater = false;
                             store.masterdataStore.resetEditStates();
                             fetchHouseholds();
                             enqueueSnackbar(result.message, {variant: result.variant})
@@ -239,13 +348,13 @@ const EditVppFormComponent = observer((props) => {
                 } else {
                     enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
                 }
-            } else if (store.masterdataStore.editState.isEditingProducer) {
-                store.masterdataStore.updateProducer(store.masterdataStore.editState.producerId,
+            } else if (store.masterdataStore.editState.isEditingWater) {
+                store.masterdataStore.updateWater(store.masterdataStore.editState.waterEnergyId,
                     store.masterdataStore.editState.vppId, dto).then((result) => {
                     if (result.success) {
                         fetchHouseholds();
                         fetchDpps();
-                        store.masterdataStore.editState.isEditingProducer = false;
+                        store.masterdataStore.editState.isEditingWater = false;
                         store.masterdataStore.resetEditStates();
                         enqueueSnackbar(result.message, {variant: result.variant})
                     } else {
@@ -261,6 +370,173 @@ const EditVppFormComponent = observer((props) => {
         }
     };
 
+    const acceptAddOrEditWind = () => {
+        //todo validation
+        if (store.masterdataStore.editState.windEnergy.windEnergyId !== '' &&
+            store.masterdataStore.editState.windEnergy.windEnergyId.length > 0) {
+            let dto = store.masterdataStore.editState.windEnergy;
+
+            if (store.masterdataStore.editState.isAddingWind) {
+                if (store.masterdataStore.editState.isAddingToDpp) {
+                    store.masterdataStore.saveWindToDpp(dto, store.masterdataStore.editState.dppId).then((result) => {
+                        if (result.success) {
+                            fetchDpps();
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingWind = false;
+                            store.masterdataStore.resetEditStates();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else if (store.masterdataStore.editState.isAddingToHousehold) {
+                    store.masterdataStore.saveWindToHousehold(dto, store.masterdataStore.editState.householdId).then((result) => {
+                        if (result.success) {
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingWind = false;
+                            store.masterdataStore.resetEditStates();
+                            fetchHouseholds();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else {
+                    enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                }
+            } else if (store.masterdataStore.editState.isEditingWind) {
+                store.masterdataStore.updateWind(store.masterdataStore.editState.windEnergyId,
+                    store.masterdataStore.editState.vppId, dto).then((result) => {
+                    if (result.success) {
+                        fetchHouseholds();
+                        fetchDpps();
+                        store.masterdataStore.editState.isEditingWind = false;
+                        store.masterdataStore.resetEditStates();
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    } else {
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    }
+                });
+            } else {
+                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            }
+
+        } else {
+            enqueueSnackbar("Der Name der Erzeugungsanlage muss min. X Zeichen enthalten", {variant: "error"})
+        }
+    };
+
+    const acceptAddOrEditSolar = () => {
+        //todo validation
+        if (store.masterdataStore.editState.solarEnergy.solarEnergyId !== '' &&
+            store.masterdataStore.editState.solarEnergy.solarEnergyId.length > 0) {
+            let dto = store.masterdataStore.editState.solarEnergy;
+
+            if (store.masterdataStore.editState.isAddingSolar) {
+                if (store.masterdataStore.editState.isAddingToDpp) {
+                    store.masterdataStore.saveSolarToDpp(dto, store.masterdataStore.editState.dppId).then((result) => {
+                        if (result.success) {
+                            fetchDpps();
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingSolar = false;
+                            store.masterdataStore.resetEditStates();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else if (store.masterdataStore.editState.isAddingToHousehold) {
+                    store.masterdataStore.saveSolarToHousehold(dto, store.masterdataStore.editState.householdId).then((result) => {
+                        if (result.success) {
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingSolar = false;
+                            store.masterdataStore.resetEditStates();
+                            fetchHouseholds();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else {
+                    enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                }
+            } else if (store.masterdataStore.editState.isEditingSolar) {
+                store.masterdataStore.updateSolar(store.masterdataStore.editState.solarEnergyId,
+                    store.masterdataStore.editState.vppId, dto).then((result) => {
+                    if (result.success) {
+                        fetchHouseholds();
+                        fetchDpps();
+                        store.masterdataStore.editState.isEditingSolar = false;
+                        store.masterdataStore.resetEditStates();
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    } else {
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    }
+                });
+            } else {
+                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            }
+
+        } else {
+            enqueueSnackbar("Der Name der Erzeugungsanlage muss min. X Zeichen enthalten", {variant: "error"})
+        }
+    };
+
+    const acceptAddOrEditOther = () => {
+        //todo validation
+        if (store.masterdataStore.editState.otherEnergy.otherEnergyId !== '' &&
+            store.masterdataStore.editState.otherEnergy.otherEnergyId.length > 0) {
+            let dto = store.masterdataStore.editState.otherEnergy;
+
+            if (store.masterdataStore.editState.isAddingOther) {
+                if (store.masterdataStore.editState.isAddingToDpp) {
+                    store.masterdataStore.saveOtherToDpp(dto, store.masterdataStore.editState.dppId).then((result) => {
+                        if (result.success) {
+                            fetchDpps();
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingOther = false;
+                            store.masterdataStore.resetEditStates();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else if (store.masterdataStore.editState.isAddingToHousehold) {
+                    store.masterdataStore.saveOtherToHousehold(dto, store.masterdataStore.editState.householdId).then((result) => {
+                        if (result.success) {
+                            store.masterdataStore.editState.isAddingProducer = false;
+                            store.masterdataStore.editState.isAddingOther = false;
+                            store.masterdataStore.resetEditStates();
+                            fetchHouseholds();
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        } else {
+                            enqueueSnackbar(result.message, {variant: result.variant})
+                        }
+                    });
+                } else {
+                    enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                }
+            } else if (store.masterdataStore.editState.isEditingOther) {
+                store.masterdataStore.updateOther(store.masterdataStore.editState.otherEnergyId,
+                    store.masterdataStore.editState.vppId, dto).then((result) => {
+                    if (result.success) {
+                        fetchHouseholds();
+                        fetchDpps();
+                        store.masterdataStore.editState.isEditingOther = false;
+                        store.masterdataStore.resetEditStates();
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    } else {
+                        enqueueSnackbar(result.message, {variant: result.variant})
+                    }
+                });
+            } else {
+                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            }
+
+        } else {
+            enqueueSnackbar("Der Name der Erzeugungsanlage muss min. X Zeichen enthalten", {variant: "error"})
+        }
+    };
 
     const acceptAddOrEditStorage = () => {
         //todo validation
@@ -324,6 +600,7 @@ const EditVppFormComponent = observer((props) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
                 }
+                store.masterdataStore.resetEditStates();
             }
         )
     };
@@ -333,8 +610,8 @@ const EditVppFormComponent = observer((props) => {
             (result) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
-                } else {
                 }
+                store.masterdataStore.resetEditStates();
             }
         )
     };
@@ -356,7 +633,7 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.deleteDpp(dppId, store.masterdataStore.editState.vppId).then(
             (result) => {
                 if (result.success) {
-                    fetchDpps().then(() => store.masterdataStore.resetEditStates());
+                    fetchDpps();
                 }
                 enqueueSnackbar(result.message, {variant: result.variant});
             }
@@ -380,35 +657,108 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.deleteHousehold(householdId, store.masterdataStore.editState.vppId).then(
             (result) => {
                 if (result.success) {
-                    fetchHouseholds().then(() => store.masterdataStore.resetEditStates());
+                    fetchHouseholds();
                 }
                 enqueueSnackbar(result.message, {variant: result.variant});
             }
         );
     };
 
-    const onOpenEditProducer = (producerId) => {
-        store.masterdataStore.getProducerById(producerId).then(
-            (result) => {
-                if (!result.success) {
+    const onOpenEditProducer = (producerId, type) => {
+        if (type === "WATER") {
+            store.masterdataStore.getWaterById(producerId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    } else {
+                        store.masterdataStore.editState.waterEnergyId = producerId;
+                        store.masterdataStore.editState.isEditingWater = true;
+                    }
+                }
+            )
+        } else if (type === "WIND") {
+            store.masterdataStore.getWindById(producerId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    } else {
+                        store.masterdataStore.editState.windEnergyId = producerId;
+                        store.masterdataStore.editState.isEditingWind = true;
+                    }
+                }
+            )
+        } else if (type === "SOLAR") {
+            store.masterdataStore.getSolarById(producerId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    } else {
+                        store.masterdataStore.editState.solarEnergyId = producerId;
+                        store.masterdataStore.editState.isEditingSolar = true;
+                    }
+                }
+            )
+        } else if (type === "OTHER") {
+            store.masterdataStore.getOtherById(producerId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    } else {
+                        store.masterdataStore.editState.otherEnergyId = producerId;
+                        store.masterdataStore.editState.isEditingOther = true;
+                    }
+                }
+            )
+        } else {
+            console.log("unknown type");
+        }
+    };
+
+    const onDeleteProducer = (producerId, type) => {
+        if (type === "WATER") {
+            store.masterdataStore.deleteWater(producerId, store.masterdataStore.editState.vppId).then(
+                (result) => {
+                    if (result.success) {
+                        fetchDpps();
+                        fetchHouseholds();
+                    }
                     enqueueSnackbar(result.message, {variant: result.variant});
-                } else {
-                    store.masterdataStore.editState.producerId = producerId;
-                    store.masterdataStore.editState.isEditingProducer = true;
                 }
-            }
-        )
-    };
+            );
+        } else if (type === "WIND") {
+            store.masterdataStore.deleteWind(producerId, store.masterdataStore.editState.vppId).then(
+                (result) => {
+                    if (result.success) {
+                        fetchDpps();
+                        fetchHouseholds();
+                    }
+                    enqueueSnackbar(result.message, {variant: result.variant});
+                }
+            );
+        } else if (type === "SOLAR") {
+            store.masterdataStore.deleteSolar(producerId, store.masterdataStore.editState.vppId).then(
+                (result) => {
+                    if (result.success) {
+                        fetchDpps();
+                        fetchHouseholds();
+                    }
+                    enqueueSnackbar(result.message, {variant: result.variant});
+                }
+            );
+        } else if (type === "OTHER") {
+            store.masterdataStore.deleteOther(producerId, store.masterdataStore.editState.vppId).then(
+                (result) => {
+                    if (result.success) {
+                        fetchDpps();
+                        fetchHouseholds();
+                    }
+                    enqueueSnackbar(result.message, {variant: result.variant});
+                }
+            );
+        } else {
+            console.log("unknown type");
+        }
 
-    const onDeleteProducer = (producerId) => {
-        store.masterdataStore.deleteProducer(producerId, store.masterdataStore.editState.vppId).then(
-            (result) => {
-                if (result.success) {
-                    fetchDpps().then(() => fetchHouseholds().then(() => store.masterdataStore.resetEditStates()));
-                }
-                enqueueSnackbar(result.message, {variant: result.variant});
-            }
-        );
     };
 
     const onOpenEditStorage = (storageId) => {
@@ -428,7 +778,8 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.deleteStorage(storageId, store.masterdataStore.editState.vppId).then(
             (result) => {
                 if (result.success) {
-                    fetchDpps().then(() => fetchHouseholds().then(() => store.masterdataStore.resetEditStates()));
+                    fetchDpps();
+                    fetchHouseholds();
                 }
                 enqueueSnackbar(result.message, {variant: result.variant});
             }
@@ -449,6 +800,14 @@ const EditVppFormComponent = observer((props) => {
 
     const onChangeVirtualPowerPlantId = (e) => {
         store.masterdataStore.editState.vpp.virtualPowerPlantId = e.target.value;
+    };
+
+    const onChangeVirtualPowerPlantShortageThreshold = (value) => {
+        store.masterdataStore.editState.vpp.shortageThreshold = value;
+    };
+
+    const onChangeVirtualPowerPlantOverflowThreshold = (value) => {
+        store.masterdataStore.editState.vpp.overflowThreshold = value;
     };
 
     const acceptEditVpp = () => {
@@ -549,7 +908,6 @@ const EditVppFormComponent = observer((props) => {
                     if (result.success) {
                         fetchHouseholds();
                         store.masterdataStore.editState.isEditingHousehold = false;
-                        store.masterdataStore.resetEditStates();
                     }
                     enqueueSnackbar(result.message, {variant: result.variant});
                 }
@@ -580,8 +938,7 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.publishVpp(store.masterdataStore.editState.vppId).then(
             (result) => {
                 if (result.success) {
-                    store.masterdataStore.resetEditStates();
-                    store.masterdataStore.getAllVppsAction();
+                    store.masterdataStore.resetEditStates().then(() => store.masterdataStore.getAllVppsAction());
                 }
                 enqueueSnackbar(result.message, {variant: result.variant});
             }
@@ -592,12 +949,122 @@ const EditVppFormComponent = observer((props) => {
         store.masterdataStore.unpublishVpp(store.masterdataStore.editState.vppId).then(
             (result) => {
                 if (result.success) {
-                    store.masterdataStore.resetEditStates();
-                    store.masterdataStore.getAllVppsAction();
+                    store.masterdataStore.resetEditStates().then(() => store.masterdataStore.getAllVppsAction());
                 }
                 enqueueSnackbar(result.message, {variant: result.variant});
             }
         );
+    };
+
+    const onOpenWaterModal = () => {
+        store.masterdataStore.resetEditStates().then(() => {
+            store.masterdataStore.editState.isAddingProducer = false;
+            store.masterdataStore.editState.isAddingWind = false;
+            store.masterdataStore.editState.isAddingSolar = false;
+            store.masterdataStore.editState.isAddingWater = true;
+            store.masterdataStore.editState.isAddingOther = false;
+        });
+    };
+
+    const onOpenWindModal = () => {
+        store.masterdataStore.resetEditStates().then(() => {
+            store.masterdataStore.editState.isAddingProducer = false;
+            store.masterdataStore.editState.isAddingSolar = false;
+            store.masterdataStore.editState.isAddingWater = false;
+            store.masterdataStore.editState.isAddingWind = true;
+            store.masterdataStore.editState.isAddingOther = false;
+        });
+    };
+
+    const onOpenSolarModal = () => {
+        store.masterdataStore.resetEditStates().then(() => {
+            store.masterdataStore.editState.isAddingProducer = false;
+            store.masterdataStore.editState.isAddingWater = false;
+            store.masterdataStore.editState.isAddingWind = false;
+            store.masterdataStore.editState.isAddingSolar = true;
+            store.masterdataStore.editState.isAddingOther = false;
+        });
+    };
+
+    const onOpenOtherModal = () => {
+        store.masterdataStore.resetEditStates().then(() => {
+            store.masterdataStore.editState.isAddingProducer = false;
+            store.masterdataStore.editState.isAddingWater = false;
+            store.masterdataStore.editState.isAddingWind = false;
+            store.masterdataStore.editState.isAddingSolar = false;
+            store.masterdataStore.editState.isAddingOther = true;
+        });
+    };
+
+    const cancelAddProducer = () => {
+        store.masterdataStore.editState.isAddingProducer = false;
+        store.masterdataStore.resetEditStates();
+    };
+
+    const combineDppProducers = (dpp) => {
+        let producers = [];
+        store.masterdataStore.dpps.find(obj => {
+            return obj.decentralizedPowerPlantId === dpp.decentralizedPowerPlantId
+        }).waters.forEach((water) => {
+            water.producerId = water.waterEnergyId;
+            water.type = "WATER";
+            producers.push(water);
+        });
+        store.masterdataStore.dpps.find(obj => {
+            return obj.decentralizedPowerPlantId === dpp.decentralizedPowerPlantId
+        }).winds.forEach((wind) => {
+            wind.producerId = wind.windEnergyId;
+            wind.type = "WIND";
+            producers.push(wind);
+        });
+        store.masterdataStore.dpps.find(obj => {
+            return obj.decentralizedPowerPlantId === dpp.decentralizedPowerPlantId
+        }).solars.forEach((solar) => {
+            solar.producerId = solar.solarEnergyId;
+            solar.type = "SOLAR";
+            producers.push(solar);
+        });
+        store.masterdataStore.dpps.find(obj => {
+            return obj.decentralizedPowerPlantId === dpp.decentralizedPowerPlantId
+        }).others.forEach((other) => {
+            other.producerId = other.otherEnergyId;
+            other.type = "OTHER";
+            producers.push(other);
+        });
+        return producers;
+    };
+
+    const combineHouseholdProducers = (household) => {
+        let producers = [];
+        store.masterdataStore.households.find(obj => {
+            return obj.householdId === household.householdId
+        }).waters.forEach((water) => {
+            water.producerId = water.waterEnergyId;
+            water.type = "WATER";
+            producers.push(water);
+        });
+        store.masterdataStore.households.find(obj => {
+            return obj.householdId === household.householdId
+        }).winds.forEach((wind) => {
+            wind.producerId = wind.windEnergyId;
+            wind.type = "WIND";
+            producers.push(wind);
+        });
+        store.masterdataStore.households.find(obj => {
+            return obj.householdId === household.householdId
+        }).solars.forEach((solar) => {
+            solar.producerId = solar.solarEnergyId;
+            solar.type = "SOLAR";
+            producers.push(solar);
+        });
+        store.masterdataStore.households.find(obj => {
+            return obj.householdId === household.householdId
+        }).others.forEach((other) => {
+            other.producerId = other.otherEnergyId;
+            other.type = "OTHER";
+            producers.push(other);
+        });
+        return producers;
     };
 
     if (store.masterdataStore.isLoading) {
@@ -658,11 +1125,7 @@ const EditVppFormComponent = observer((props) => {
                                 <Panel header={dpp.decentralizedPowerPlantId} key={dpp.decentralizedPowerPlantId}>
                                     <DppActions decentralizedPowerPlantId={dpp.decentralizedPowerPlantId}/>
                                     <Table dataSource=
-                                               {
-                                                   store.masterdataStore.dpps.find(obj => {
-                                                       return obj.decentralizedPowerPlantId === dpp.decentralizedPowerPlantId
-                                                   }).producers
-                                               }
+                                               {combineDppProducers(dpp)}
                                            columns={producerColumns}/>
                                     <Button onClick={() => onOpenAddProducerWithDpp(dpp.decentralizedPowerPlantId)}
                                             type="primary"
@@ -691,18 +1154,16 @@ const EditVppFormComponent = observer((props) => {
                                 icon={<PlusOutlined/>}>
                             Haushalt hinzufügen
                         </Button>
-                        {store.masterdataStore.households.map((dpp) => {
+                        {store.masterdataStore.households.map((household) => {
                             return (<Collapse collapsible="header">
-                                <Panel header={dpp.householdId} key={dpp.householdId}>
-                                    <HouseholdActions householdId={dpp.householdId}/>
+                                <Panel header={household.householdId} key={household.householdId}>
+                                    <HouseholdActions householdId={household.householdId}/>
                                     <Table
                                         dataSource=
-                                            {store.masterdataStore.households.find(obj => {
-                                                return obj.householdId === dpp.householdId
-                                            }).producers}
+                                            {combineHouseholdProducers(household)}
 
                                         columns={producerColumns}/>
-                                    <Button onClick={() => onOpenAddProducerWithHousehold(dpp.householdId)}
+                                    <Button onClick={() => onOpenAddProducerWithHousehold(household.householdId)}
                                             type="primary"
                                             icon={<PlusOutlined/>}>
                                         Erzeugungsanlage hinzufügen
@@ -711,12 +1172,12 @@ const EditVppFormComponent = observer((props) => {
                                         dataSource=
                                             {
                                                 store.masterdataStore.households.find(obj => {
-                                                    return obj.householdId === dpp.householdId
+                                                    return obj.householdId === household.householdId
                                                 }).storages
                                             }
 
                                         columns={storageColumns}/>
-                                    <Button onClick={(e) => onOpenAddStorageWithHousehold(dpp.householdId)}
+                                    <Button onClick={(e) => onOpenAddStorageWithHousehold(household.householdId)}
                                             type="primary"
                                             icon={<PlusOutlined/>}>
                                         Speicheranlage hinzufügen
@@ -733,6 +1194,10 @@ const EditVppFormComponent = observer((props) => {
                             <Input value={store.masterdataStore.editState.vpp.virtualPowerPlantId}
                                    onChange={onChangeVirtualPowerPlantId}
                                    placeholder="Name des virtuellen Kraftwerks"/>
+                            <Slider value={store.masterdataStore.editState.vpp.shortageThreshold}
+                                    onChange={onChangeVirtualPowerPlantShortageThreshold}/>
+                            <Slider value={store.masterdataStore.editState.vpp.overflowThreshold}
+                                    onChange={onChangeVirtualPowerPlantOverflowThreshold}/>
                         </Modal>
 
                         <Modal title="Dez. Kraftwerk"
@@ -759,45 +1224,132 @@ const EditVppFormComponent = observer((props) => {
                         </Modal>
 
 
-                        <Modal title="Erzeugungsanlage"
-                               visible={store.masterdataStore.editState.isAddingProducer || store.masterdataStore.editState.isEditingProducer}
-                               onOk={acceptAddOrEditProducer}
-                               onCancel={cancelAddOrEditProducer}>
-                            <p>Bitte pflege die Daten für die Erzeugungsanlage ein.</p>
-                            <Input value={store.masterdataStore.editState.producer.producerId}
-                                   onChange={onChangeProducerName}
-                                   placeholder="Name der Erzeugungsanlage"/>
-                            <InputNumber value={store.masterdataStore.editState.producer.ratedPower}
-                                         onChange={onChangeProducerPower}
-                                         placeholder="Leistung"/>
-                            <Select
-                                showSearch
-                                style={{width: 200}}
-                                placeholder="Art der Anlage"
-                                onChange={onChangeProducerType}
-                                value={store.masterdataStore.editState.producer.producerType}
-                            >
-                                <Option value="WIND">Windenergie</Option>
-                                <Option value="SOLAR">Solarenergie</Option>
-                                <Option value="WATER">Wasserenergie</Option>
-                                <Option value="BIO">Bioenergie</Option>
-                            </Select>
-                            <Select
-                                showSearch
-                                style={{width: 200}}
-                                placeholder="Energieoutput"
-                                onChange={onChangeProducerEnergyType}
-                                value={store.masterdataStore.editState.producer.energyType}
-                            >
-                                <Option value="ELECTRICITY">Elektrische Energie</Option>
-                                <Option value="HEAT">Thermische Energie</Option>
-                            </Select>
-                            <Checkbox checked={store.masterdataStore.editState.producer.isRunning}
-                                      onChange={onChangeProducerIsRunning}>Anlage läuft?</Checkbox>
-                            Kapazität
-                            <Slider value={store.masterdataStore.editState.producer.capacity} defaultValue={100}
-                                    onChange={onChangeProducerCapacity}/>
+                        <Modal title="Erzeugungsanlage hinzufügen"
+                               visible={store.masterdataStore.editState.isAddingProducer}
+                               onCancel={cancelAddProducer}
+                               footer={[
+                                   <Button key="back" onClick={cancelAddProducer}>
+                                       Abbrechen
+                                   </Button>,
+                                   <Button key="submit" type="primary" onClick={onOpenWaterModal}>
+                                       Wasser
+                                   </Button>,
+                                   <Button type="primary" onClick={onOpenWindModal}>
+                                       Wind
+                                   </Button>,
+                                   <Button type="primary" onClick={onOpenSolarModal}>
+                                       Solar
+                                   </Button>,
+                                   <Button type="primary" onClick={onOpenOtherModal}>
+                                       Sonstige
+                                   </Button>,
+                               ]}
+                        >
+                            <p>Bitte wähle die Art der Anlage aus, die du hinzufügen möchtest.</p>
                         </Modal>
+
+
+                        <Modal title="Wasserkraftwerk"
+                               visible={store.masterdataStore.editState.isAddingWater || store.masterdataStore.editState.isEditingWater}
+                               onOk={acceptAddOrEditWater}
+                               onCancel={cancelAddOrEditWater}>
+                            <p>Bitte pflege die Daten für das Wasserkraftwerk ein</p>
+                            <Input value={store.masterdataStore.editState.waterEnergy.waterEnergyId}
+                                   onChange={onChangeWaterEnergyId}
+                                   placeholder="Name der Erzeugungsanlage"/>
+                            <InputNumber value={store.masterdataStore.editState.waterEnergy.efficiency}
+                                         onChange={onChangeWaterEnergyEfficiency}
+                                         placeholder="Wirkungsgrad"/>
+                            <InputNumber value={store.masterdataStore.editState.waterEnergy.density}
+                                         onChange={onChangeWaterEnergyDensity}
+                                         placeholder="Wasserdichte"/>
+                            <InputNumber value={store.masterdataStore.editState.waterEnergy.gravity}
+                                         onChange={onChangeWaterEnergyGravity}
+                                         placeholder="Fallgeschwindigkeit"/>
+                            <InputNumber value={store.masterdataStore.editState.waterEnergy.height}
+                                         onChange={onChangeWaterEnergyHeight}
+                                         placeholder="effektive Fallhöhe"/>
+                            <InputNumber value={store.masterdataStore.editState.waterEnergy.volumeFlow}
+                                         onChange={onChangeWaterEnergyVolumeFlow}
+                                         placeholder="Volumenstrom"/>
+                            Kapazität
+                            <Slider value={store.masterdataStore.editState.waterEnergy.capacity}
+                                    onChange={onChangeWaterEnergyCapacity}/>
+                        </Modal>
+
+
+                        <Modal title="Windkraftanlage"
+                               visible={store.masterdataStore.editState.isAddingWind || store.masterdataStore.editState.isEditingWind}
+                               onOk={acceptAddOrEditWind}
+                               onCancel={cancelAddOrEditWind}>
+                            <p>Bitte pflege die Daten für die Windkraftanlage ein</p>
+                            <Input value={store.masterdataStore.editState.windEnergy.windEnergyId}
+                                   onChange={onChangeWindEnergyId}
+                                   placeholder="Name der Erzeugungsanlage"/>
+                            <InputNumber value={store.masterdataStore.editState.windEnergy.efficiency}
+                                         onChange={onChangeWindEnergyEfficiency}
+                                         placeholder="Wirkungsgrad"/>
+                            <InputNumber value={store.masterdataStore.editState.windEnergy.latitude}
+                                         onChange={onChangeWindEnergyLatitude}
+                                         placeholder="Latitude"/>
+                            <InputNumber value={store.masterdataStore.editState.windEnergy.longitude}
+                                         onChange={onChangeWindEnergyLongitude}
+                                         placeholder="Longitude"/>
+                            <InputNumber value={store.masterdataStore.editState.windEnergy.radius}
+                                         onChange={onChangeWindEnergyRadius}
+                                         placeholder="Radius"/>
+                            <InputNumber value={store.masterdataStore.editState.windEnergy.height}
+                                         onChange={onChangeWindEnergyHeight}
+                                         placeholder="Höhe"/>
+                            Kapazität
+                            <Slider value={store.masterdataStore.editState.windEnergy.capacity}
+                                    onChange={onChangeWindEnergyCapacity}/>
+                        </Modal>
+
+                        <Modal title="Solaranlage"
+                               visible={store.masterdataStore.editState.isAddingSolar || store.masterdataStore.editState.isEditingSolar}
+                               onOk={acceptAddOrEditSolar}
+                               onCancel={cancelAddOrEditSolar}>
+                            <p>Bitte pflege die Daten für die Solaranlage ein</p>
+                            <Input value={store.masterdataStore.editState.solarEnergy.solarEnergyId}
+                                   onChange={onChangeSolarEnergyId}
+                                   placeholder="Name der Erzeugungsanlage"/>
+                            <InputNumber value={store.masterdataStore.editState.solarEnergy.ratedCapacity}
+                                         onChange={onChangeSolarEnergyRatedCapacity}
+                                         placeholder="Nennleistung"/>
+                            <InputNumber value={store.masterdataStore.editState.solarEnergy.latitude}
+                                         onChange={onChangeSolarEnergyLatitude}
+                                         placeholder="Latitude"/>
+                            <InputNumber value={store.masterdataStore.editState.solarEnergy.longitude}
+                                         onChange={onChangeSolarEnergyLongitude}
+                                         placeholder="Longitude"/>
+                            <InputNumber value={store.masterdataStore.editState.solarEnergy.alignment}
+                                         onChange={onChangeSolarEnergyAlignment}
+                                         placeholder="Orientierung"/>
+                            <InputNumber value={store.masterdataStore.editState.solarEnergy.slope}
+                                         onChange={onChangeSolarEnergySlope}
+                                         placeholder="Neigung"/>
+                            Kapazität
+                            <Slider value={store.masterdataStore.editState.solarEnergy.capacity}
+                                    onChange={onChangeSolarEnergyCapacity}/>
+                        </Modal>
+
+                        <Modal title="Sonstige Anlage"
+                               visible={store.masterdataStore.editState.isAddingOther || store.masterdataStore.editState.isEditingOther}
+                               onOk={acceptAddOrEditOther}
+                               onCancel={cancelAddOrEditOther}>
+                            <p>Bitte pflege die Daten für die sonstige Anlage ein</p>
+                            <Input value={store.masterdataStore.editState.otherEnergy.otherEnergyId}
+                                   onChange={onChangeOtherEnergyId}
+                                   placeholder="Name der Erzeugungsanlage"/>
+                            <InputNumber value={store.masterdataStore.editState.otherEnergy.ratedCapacity}
+                                         onChange={onChangeOtherEnergyRatedCapacity}
+                                         placeholder="Nennleistung"/>
+                            Kapazität
+                            <Slider value={store.masterdataStore.editState.otherEnergy.capacity}
+                                    onChange={onChangeOtherEnergyCapacity}/>
+                        </Modal>
+
 
                         <Modal title="Speicherungsanlage hinzufügen"
                                visible={store.masterdataStore.editState.isAddingStorage ||
@@ -811,18 +1363,11 @@ const EditVppFormComponent = observer((props) => {
                             <InputNumber value={store.masterdataStore.editState.storage.ratedPower}
                                          onChange={onChangeStoragePower}
                                          placeholder="Leistung"/>
-                            <Select
-                                showSearch
-                                style={{width: 200}}
-                                placeholder="Art des Energiespeichers"
-                                onChange={onChangeStorageEnergyType}
-                                value={store.masterdataStore.editState.storage.energyType}
-                            >
-                                <Option value="ELECTRICITY">Elektrische Energie</Option>
-                                <Option value="HEAT">Thermische Energie</Option>
-                            </Select>
+                            <InputNumber value={store.masterdataStore.editState.storage.loadTimeHour}
+                                         onChange={onChangeStorageLoadTimeHour}
+                                         placeholder="C-Rate"/>
                             Aktuelle Speicherkapazität
-                            <Slider value={store.masterdataStore.editState.storage.capacity} defaultValue={100}
+                            <Slider value={store.masterdataStore.editState.storage.capacity}
                                     onChange={onChangeStorageCapacity}/>
                         </Modal>
                     </div>

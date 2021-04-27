@@ -1,7 +1,7 @@
-import {SERVICE_URL} from '../constants'
+import {MASTERDATA_SERVICE_URL} from '../constants'
 import axios from 'axios'
 
-const API_ENTRYPOINT = SERVICE_URL + '/masterdata/api';
+const API_ENTRYPOINT = MASTERDATA_SERVICE_URL + '/masterdata/api';
 
 /**
  * VPP Calls
@@ -130,6 +130,165 @@ export async function updateProducerById(businessKey, vppBusinessKey, dto) {
 }
 
 /**
+ * WaterEnergy Calls
+ */
+
+export async function getAllWatersByDppId(dppBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/water/by/dpp" + "/" + dppBusinessKey)
+}
+
+export async function getAllWatersByHouseholdId(householdBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/water/by/household" + "/" + householdBusinessKey)
+}
+
+export async function getWaterById(businessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/water" + "/" + businessKey)
+}
+
+export async function saveWaterToDpp(dto, dppBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/water/by/dpp" + "/" + dppBusinessKey, dto)
+}
+
+export async function saveWaterToHousehold(dto, householdBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/water/by/household" + "/" + householdBusinessKey, dto)
+}
+
+export async function deleteWaterById(businessKey, vppBusinessKey) {
+    return await axios.delete(API_ENTRYPOINT +
+        "/water" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey)
+}
+
+export async function updateWaterById(businessKey, vppBusinessKey, dto) {
+    return await axios.put(API_ENTRYPOINT +
+        "/water" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
+}
+
+/**
+ * WindEnergy Calls
+ */
+
+export async function getAllWindsByDppId(dppBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/wind/by/dpp" + "/" + dppBusinessKey)
+}
+
+export async function getAllWindsByHouseholdId(householdBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/wind/by/household" + "/" + householdBusinessKey)
+}
+
+export async function getWindById(businessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/wind" + "/" + businessKey)
+}
+
+export async function saveWindToDpp(dto, dppBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/wind/by/dpp" + "/" + dppBusinessKey, dto)
+}
+
+export async function saveWindToHousehold(dto, householdBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/wind/by/household" + "/" + householdBusinessKey, dto)
+}
+
+export async function deleteWindById(businessKey, vppBusinessKey) {
+    return await axios.delete(API_ENTRYPOINT +
+        "/wind" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey)
+}
+
+export async function updateWindById(businessKey, vppBusinessKey, dto) {
+    return await axios.put(API_ENTRYPOINT +
+        "/wind" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
+}
+
+/**
+ * SolarEnergy Calls
+ */
+
+export async function getAllSolarsByDppId(dppBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/solar/by/dpp" + "/" + dppBusinessKey)
+}
+
+export async function getAllSolarsByHouseholdId(householdBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/solar/by/household" + "/" + householdBusinessKey)
+}
+
+export async function getSolarById(businessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/solar" + "/" + businessKey)
+}
+
+export async function saveSolarToDpp(dto, dppBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/solar/by/dpp" + "/" + dppBusinessKey, dto)
+}
+
+export async function saveSolarToHousehold(dto, householdBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/solar/by/household" + "/" + householdBusinessKey, dto)
+}
+
+export async function deleteSolarById(businessKey, vppBusinessKey) {
+    return await axios.delete(API_ENTRYPOINT +
+        "/solar" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey)
+}
+
+export async function updateSolarById(businessKey, vppBusinessKey, dto) {
+    return await axios.put(API_ENTRYPOINT +
+        "/solar" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
+}
+
+
+/**
+ * OtherEnergy Calls
+ */
+
+export async function getAllOthersByDppId(dppBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/other/by/dpp" + "/" + dppBusinessKey)
+}
+
+export async function getAllOthersByHouseholdId(householdBusinessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/other/by/household" + "/" + householdBusinessKey)
+}
+
+export async function getOtherById(businessKey) {
+    return await axios.get(API_ENTRYPOINT +
+        "/other" + "/" + businessKey)
+}
+
+export async function saveOtherToDpp(dto, dppBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/other/by/dpp" + "/" + dppBusinessKey, dto)
+}
+
+export async function saveOtherToHousehold(dto, householdBusinessKey) {
+    return await axios.post(API_ENTRYPOINT +
+        "/other/by/household" + "/" + householdBusinessKey, dto)
+}
+
+export async function deleteOtherById(businessKey, vppBusinessKey) {
+    return await axios.delete(API_ENTRYPOINT +
+        "/other" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey)
+}
+
+export async function updateOtherById(businessKey, vppBusinessKey, dto) {
+    return await axios.put(API_ENTRYPOINT +
+        "/other" + "/" + businessKey + "?vppBusinessKey=" + vppBusinessKey, dto)
+}
+
+
+
+/**
  * Storage Calls
  */
 export async function getAllStorageByDppId(dppBusinessKey) {
@@ -153,6 +312,7 @@ export async function saveStorageToDpp(dto, dppBusinessKey) {
 }
 
 export async function saveStorageToHousehold(dto, householdBusinessKey) {
+    console.log("2.sending dto", dto);
     return await axios.post(API_ENTRYPOINT +
         "/storage/by/household" + "/" + householdBusinessKey, dto)
 }

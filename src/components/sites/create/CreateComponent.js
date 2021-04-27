@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Col, Form, Input, Row} from "antd";
+import {Button, Col, Form, Input, Row, Slider} from "antd";
 import history from "../../../history";
 
 const CreateComponent = observer((props) => {
@@ -28,9 +28,14 @@ const CreateComponent = observer((props) => {
     }, []);
 
     let onFinish = (values) => {
+        console.log("vpp form:", values);
         let vppBusinessKey = values.vppBusinessKey;
         if (vppBusinessKey !== "" && vppBusinessKey.length > 3) {
-            let dto = {virtualPowerPlantId: vppBusinessKey};
+            let dto = {
+                virtualPowerPlantId: vppBusinessKey,
+                shortageThreshold: (values.shortageThreshold > 0) ? values.shortageThreshold : 0,
+                overflowThreshold: (values.overflowThreshold > 0) ? values.overflowThreshold : 0,
+            };
             store.masterdataStore.saveVpp(dto).then((result) => {
                 if (result.success) {
                     //redirect to next step
@@ -68,7 +73,26 @@ const CreateComponent = observer((props) => {
                         >
                             <Input/>
                         </Form.Item>
-
+                        <Form.Item
+                            label="Stromengpassgrenze in Prozent"
+                            name="shortageThreshold"
+                            rules={[{
+                                required: true,
+                                message: 'Die Stromengpassgrenze muss ausgewählt werden.'
+                            }]}
+                        >
+                            <Slider defaultValue={0}/>
+                        </Form.Item>
+                        <Form.Item
+                            label="Stromüberflussgrenze in Prozent"
+                            name="overflowThreshold"
+                            rules={[{
+                                required: true,
+                                message: 'Die Stromüberflussgrenze muss ausgewählt werden.'
+                            }]}
+                        >
+                            <Slider defaultValue={0}/>
+                        </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
                                 Prozess starten
