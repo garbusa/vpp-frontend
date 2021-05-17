@@ -3,15 +3,16 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Input, InputNumber, Modal, Popconfirm, Steps, Table} from "antd";
+import {Button, Col, Popconfirm, Row, Table} from "antd";
 import history from "../../../../history";
 import {PlusOutlined} from '@ant-design/icons';
+import {CreateStepComponent} from "../../../ui/step/CreateStepComponent";
+import {HouseholdForm} from "../../../ui/data-forms/vpp/HouseholdForm";
 
 const AddHouseholdsComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
 
-    const {Step} = Steps;
     const columns = [
         {
             title: 'Haushalte',
@@ -26,79 +27,60 @@ const AddHouseholdsComponent = observer((props) => {
     ];
 
     useEffect(() => {
-        if (store.masterdataStore.creatingState.step !== 2) {
-            if (store.masterdataStore.creatingState.step === 0) {
+        if (store.vppStore.creatingState.step !== 2) {
+            if (store.vppStore.creatingState.step === 0) {
                 history.push("/erstellen")
             }
-            if (store.masterdataStore.creatingState.step === 1) {
+            if (store.vppStore.creatingState.step === 1) {
                 history.push("/erstellen/schritt-1")
             }
-            if (store.masterdataStore.creatingState.step === 3) {
+            if (store.vppStore.creatingState.step === 3) {
                 history.push("/erstellen/schritt-3")
             }
         } else {
             fetchHouseholds();
         }
-
-        //@todo check creatingstate
     }, []);
 
-    const acceptAddHousehold = () => {
-        if (store.masterdataStore.stepTwoState.householdName !== '' &&
-            store.masterdataStore.stepTwoState.householdName.length > 0) {
-            let dto =
-                {
-                    householdId: store.masterdataStore.stepTwoState.householdName,
-                    householdMemberAmount: store.masterdataStore.stepTwoState.householdAmount
-                };
-            store.masterdataStore.saveHousehold(store.masterdataStore.creatingState.vppId, dto).then((result) => {
-                if (result.success) {
-                    store.masterdataStore.stepTwoState.isAddingHousehold = false;
-                    store.masterdataStore.resetStepTwoModals();
-                    fetchHouseholds();
-                    enqueueSnackbar(result.message, {variant: result.variant})
-                } else {
-                    enqueueSnackbar(result.message, {variant: result.variant})
-                }
-            });
-        } else {
-            enqueueSnackbar("Der Name des Haushaltes muss min. 1 Zeichen enthalten", {variant: "error"})
-        }
+    const onFinishCreateHousehold = (record) => {
+        store.vppStore.saveHousehold(store.vppStore.creatingState.vppId, record).then((result) => {
+            if (result.success) {
+                store.vppStore.stepTwoState.isAddingHousehold = false;
+                fetchHouseholds();
+                enqueueSnackbar(result.message, {variant: result.variant})
+            } else {
+                enqueueSnackbar(result.message, {variant: result.variant})
+            }
+        });
     };
 
-    const cancelAddHousehold = () => {
-        store.masterdataStore.stepTwoState.isAddingHousehold = false;
+    const onCancelCreateHousehold = () => {
+        store.vppStore.stepTwoState.isAddingHousehold = false;
     };
 
     const onOpenAddHouseholdModal = () => {
-        store.masterdataStore.stepTwoState.isAddingHousehold = true;
+        store.vppStore.stepTwoState.isAddingHousehold = true;
     };
 
-    const onHouseholdNameChange = (e) => {
-        store.masterdataStore.stepTwoState.householdName = e.target.value;
-    };
-
-    const onHouseholdAmountChange = (value) => {
-        store.masterdataStore.stepTwoState.householdAmount = value;
-    };
 
     const onForward = () => {
-        store.masterdataStore.creatingState.step = 3;
+        store.vppStore.creatingState.step = 3;
         history.push('/erstellen/schritt-3');
     };
 
     const onBack = () => {
-        store.masterdataStore.creatingState.step = 1;
+        store.vppStore.creatingState.step = 1;
         history.push('/erstellen/schritt-1');
     };
 
     const onEnd = () => {
-        store.masterdataStore.resetStateOnEnd();
-        history.push('/erstellen');
+        store.vppStore.resetCreatingState();
+        enqueueSnackbar("Der Prozess wurde erfolgreich beendet", {variant: "success"});
+        history.push('/bearbeiten');
     };
 
     const fetchHouseholds = () => {
-        store.masterdataStore.getHouseholdsByVpp(store.masterdataStore.creatingState.vppId).then(
+        store.vppStore.getHouseholdsByVpp(store.vppStore.creatingState.vppId).then(
             (result) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
@@ -109,45 +91,56 @@ const AddHouseholdsComponent = observer((props) => {
 
     return (
         <div className={'create-vpp'}>
-            <Steps size="small" current={2}>
-                <Step title="Prozess starten"/>
-                <Step title="Dez. Kraftwerke"/>
-                <Step title="Haushalte"/>
-                <Step title="Erzeugungs- und Speicheranlagen"/>
-            </Steps>
-            <h2>Schritt 2: Hinzufügen der Haushalte</h2>
+            <CreateStepComponent currentStep={2}/>
+
+            <h2 style={{marginTop: 32}}>Schritt 2: Hinzufügen der Haushalte</h2>
+
             <p>Ein virtuelles Kraftwerk beinhaltet beliebig viele Haushalte. In diesem Schritt werden diese dem
                 virtuellen Kraftwerk hinzugefügt.</p>
-            <Table dataSource={store.masterdataStore.households} columns={columns}/>
-            <Button onClick={onOpenAddHouseholdModal} type="primary" icon={<PlusOutlined/>}>
-                Haushalt hinzufügen
-            </Button>
-            <Popconfirm
-                title="Möchtest du diesen Prozess wirklich beenden?"
-                onConfirm={onEnd}
-                okText="Ja"
-                cancelText="Nein"
-            >
-                <Button type="primary">
-                    Prozess beenden
-                </Button>
-            </Popconfirm>
-            <Button onClick={onBack} type="primary">
-                Zurück zu Schritt 2
-            </Button>
-            <Button onClick={onForward} type="primary">
-                Weiter zu Schritt 3
-            </Button>
 
-            <Modal title="Haushalt hinzufügen" visible={store.masterdataStore.stepTwoState.isAddingHousehold}
-                   onOk={acceptAddHousehold}
-                   onCancel={cancelAddHousehold}>
-                <p>Ein Haushalt besteht aus einem eindeutigem Namen und die Anzahl der Haushaltsmitglieder.</p>
-                <Input value={store.masterdataStore.stepTwoState.householdName}
-                       onChange={(e) => onHouseholdNameChange(e)} placeholder="Name des Haushaltes"/>
-                <InputNumber value={store.masterdataStore.stepTwoState.householdAmount}
-                             onChange={(e) => onHouseholdAmountChange(e)} placeholder="Anzahl der Haushaltsmitglieder"/>
-            </Modal>
+            <Table dataSource={store.vppStore.households} columns={columns}/>
+
+            <Row style={{marginTop: 16}}>
+                <Col>
+                    <Button onClick={onOpenAddHouseholdModal} type="primary" icon={<PlusOutlined/>}>
+                        Haushalt hinzufügen
+                    </Button>
+                </Col>
+            </Row>
+
+            <Row style={{marginTop: 16}} justify="end">
+                <Col>
+                    <Popconfirm
+                        title="Möchtest du diesen Prozess wirklich beenden?"
+                        onConfirm={onEnd}
+                        onCancel={() => {
+                        }}
+                        okText="Ja"
+                        cancelText="Nein"
+                    >
+                        <Button style={{marginRight: 8}}>
+                            Prozess beenden
+                        </Button>
+                    </Popconfirm>
+                </Col>
+                <Col>
+                    <Button style={{marginRight: 8}} onClick={onBack} type="primary">
+                        Zurück zu Schritt 2
+                    </Button>
+                </Col>
+                <Col>
+                    <Button onClick={onForward} type="primary">
+                        Weiter zu Schritt 3
+                    </Button>
+                </Col>
+            </Row>
+
+            <HouseholdForm
+                visible={store.vppStore.stepTwoState.isAddingHousehold}
+                onFinish={onFinishCreateHousehold}
+                onCancel={onCancelCreateHousehold}
+                editing={false}
+            />
         </div>
 
     );

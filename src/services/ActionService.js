@@ -6,18 +6,23 @@ const API_ENTRYPOINT = ACTION_SERVICE_URL + '/action/api';
 /**
  * Load Calls
  */
-export async function getActionRequestById(actionRequestBusinessKey) {
-    return await axios.get(API_ENTRYPOINT +
-        "/action" + "/" + actionRequestBusinessKey)
+
+export async function isActionHealthy() {
+    return await axios.get(API_ENTRYPOINT + "/actuator/health")
 }
 
-export async function getAllActionRequestsByVppId(vppBusinessKey) {
+export async function getActionRequestById(actionRequestId) {
     return await axios.get(API_ENTRYPOINT +
-        "/action" + "/by/vpp/" + vppBusinessKey)
+        "/action" + "/" + actionRequestId)
 }
 
-export async function scheduleActionRequest(vppBusinessKey) {
+export async function getAllActionRequestsByVppId(virtualPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +
-        "/action" + "/schedule/" + vppBusinessKey)
+        "/action" + "/by/vpp/" + virtualPowerPlantId)
+}
+
+export async function scheduleActionRequest(dto) {
+    return await axios.post(API_ENTRYPOINT +
+        "/action", dto)
 }
 

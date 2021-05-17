@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Col, Form, Input, Row, Slider} from "antd";
+import {Button, Col, Form, Input, Row} from "antd";
 import history from "../../../history";
 
 const CreateComponent = observer((props) => {
@@ -11,16 +11,16 @@ const CreateComponent = observer((props) => {
     const store = useContext(RootStoreContext);
 
     useEffect(() => {
-        if (store.masterdataStore.creatingState.isCreating) {
+        if (store.vppStore.creatingState.isCreating) {
             //redirect to right step and state
-            if (store.masterdataStore.creatingState.step !== 0) {
-                if (store.masterdataStore.creatingState.step === 1) {
+            if (store.vppStore.creatingState.step !== 0) {
+                if (store.vppStore.creatingState.step === 1) {
                     history.push("/erstellen/schritt-1")
                 }
-                if (store.masterdataStore.creatingState.step === 2) {
+                if (store.vppStore.creatingState.step === 2) {
                     history.push("/erstellen/schritt-2")
                 }
-                if (store.masterdataStore.creatingState.step === 3) {
+                if (store.vppStore.creatingState.step === 3) {
                     history.push("/erstellen/schritt-3")
                 }
             }
@@ -28,18 +28,14 @@ const CreateComponent = observer((props) => {
     }, []);
 
     let onFinish = (values) => {
-        console.log("vpp form:", values);
-        let vppBusinessKey = values.vppBusinessKey;
-        if (vppBusinessKey !== "" && vppBusinessKey.length > 3) {
+        let virtualPowerPlantId = values.virtualPowerPlantId;
+        if (virtualPowerPlantId !== "" && virtualPowerPlantId.length > 3) {
             let dto = {
-                virtualPowerPlantId: vppBusinessKey,
-                shortageThreshold: (values.shortageThreshold > 0) ? values.shortageThreshold : 0,
-                overflowThreshold: (values.overflowThreshold > 0) ? values.overflowThreshold : 0,
+                virtualPowerPlantId: virtualPowerPlantId
             };
-            store.masterdataStore.saveVpp(dto).then((result) => {
+            store.vppStore.saveVpp(dto).then((result) => {
                 if (result.success) {
-                    //redirect to next step
-                    store.masterdataStore.creatingState.step = 1;
+                    store.vppStore.creatingState.step = 1;
                     history.push('/erstellen/schritt-1');
                     enqueueSnackbar(result.message, {variant: result.variant})
                 } else {
@@ -54,7 +50,8 @@ const CreateComponent = observer((props) => {
     return (
         <div className={'create-vpp'}>
             <h2>Virtuelles Kraftwerk erstellen</h2>
-            <p>Bitte wähle einen Namen für das neue virtuelle Kraftwerk aus und bestätige den Button um den Prozess zu
+            <p>Bitte wählen Sie einen Namen für das neue virtuelle Kraftwerk aus und bestätige den Button um den Prozess
+                zu
                 starten.</p>
             <Row>
                 <Col span={12}>
@@ -64,34 +61,14 @@ const CreateComponent = observer((props) => {
                         onFinish={onFinish}
                     >
                         <Form.Item
-                            label="VK Name"
-                            name="vppBusinessKey"
+                            label="Name des virtuellen Kraftwerks"
+                            name="virtualPowerPlantId"
                             rules={[{
                                 required: true,
-                                message: 'Der Name des virtuellen Kraftwerks muss ausgefüllt sein.'
+                                message: 'Dieses Feld muss ausgefüllt sein'
                             }]}
                         >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Stromengpassgrenze in Prozent"
-                            name="shortageThreshold"
-                            rules={[{
-                                required: true,
-                                message: 'Die Stromengpassgrenze muss ausgewählt werden.'
-                            }]}
-                        >
-                            <Slider defaultValue={0}/>
-                        </Form.Item>
-                        <Form.Item
-                            label="Stromüberflussgrenze in Prozent"
-                            name="overflowThreshold"
-                            rules={[{
-                                required: true,
-                                message: 'Die Stromüberflussgrenze muss ausgewählt werden.'
-                            }]}
-                        >
-                            <Slider defaultValue={0}/>
+                            <Input style={{width: 250}}/>
                         </Form.Item>
                         <Form.Item>
                             <Button type="primary" htmlType="submit">

@@ -1,17 +1,15 @@
 import React, {createContext} from "react";
-import useMasterdataContext from "../contexts/MasterdataContext"
-import userDashboardContext from "../contexts/DashboardContext"
+import useVppContext from "../contexts/VppContext"
 
 export const RootStoreContext = createContext(null);
 
 
 const RootStore = ({children}) => {
-    const masterdataContext = useMasterdataContext();
-    const dashboardContext = userDashboardContext();
+    const vppContext = useVppContext();
 
     return (
         <RootStoreContext.Provider
-            value={{masterdataStore: masterdataContext, dashboardStore: dashboardContext}}
+            value={{vppStore: vppContext}}
         >
             {children}
         </RootStoreContext.Provider>

@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button} from "antd";
+import {Alert, Button, Col, Row, Tooltip} from "antd";
 import EditVppFormComponent from "./EditVppFormComponent";
 
 const EditComponent = observer((props) => {
@@ -11,8 +11,7 @@ const EditComponent = observer((props) => {
     const store = useContext(RootStoreContext);
 
     useEffect(() => {
-        store.masterdataStore.resetStateOnEnd();
-        store.masterdataStore.getAllVppsAction().then(
+        store.vppStore.getAllVppsAction().then(
             (result) => {
                 if (result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant})
@@ -27,17 +26,28 @@ const EditComponent = observer((props) => {
     }, []);
 
     const onSelectVpp = (vppId) => {
-        fetchHouseholds(vppId).then(
-            () => {
-                fetchDpps(vppId).then(() => {
-                    store.masterdataStore.editState.vppId = vppId;
-                });
+        fetchVpp(vppId).then(() => {
+            fetchHouseholds(vppId).then(
+                () => {
+                    fetchDpps(vppId).then(() => {
+                        store.vppStore.editState.vppId = vppId;
+                    });
+                }
+            );
+        });
+
+    };
+
+    const fetchVpp = async (vppId) => {
+        store.vppStore.getVppById(vppId).then((result) => {
+            if (!result.success) {
+                enqueueSnackbar(result.message, {variant: result.variant});
             }
-        );
+        });
     };
 
     const fetchHouseholds = async (vppId) => {
-        store.masterdataStore.getHouseholdsByVpp(vppId).then(
+        store.vppStore.getHouseholdsByVpp(vppId).then(
             (result) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
@@ -47,7 +57,7 @@ const EditComponent = observer((props) => {
     };
 
     const fetchDpps = async (vppId) => {
-        store.masterdataStore.getDppsByVpp(vppId).then(
+        store.vppStore.getDppsByVpp(vppId).then(
             (result) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
@@ -57,27 +67,30 @@ const EditComponent = observer((props) => {
         )
     };
 
-    if (store.masterdataStore.isLoading) {
-        return (
-            <div className="test">
-                loading
-            </div>
-        );
+    if (store.vppStore.isLoading) {
+        return null;
 
     } else {
         return (
             <div className={'edit-vpp'}>
                 <h2>Virtuelles Kraftwerk editieren</h2>
-                <p>In diesem Bereich können bestehende virtuelle Kraftwerke editiert, gelöscht und publiziert
-                    werden.</p>
-                {store.masterdataStore.vpps.length < 1
-                    ? <p>Es gibt momentan keine angelegten virtuellen Kraftwerke</p>
-                    : store.masterdataStore.vpps.map((vpp) => {
+                <p>In diesem Bereich können Sie bestehende virtuelle Kraftwerke editieren löschen und publizieren.</p>
+                {store.vppStore.vpps.length < 1
+                    ? <Row>
+                        <Col>
+                            <Alert
+                                description={"Es existieren momentan keine virtuellen Kraftwerke, die bearbeitet werden können."}/>
+                        </Col>
+                    </Row>
+                    : store.vppStore.vpps.map((vpp) => {
                         return (
-                            <Button onClick={e => onSelectVpp(vpp.virtualPowerPlantId)} type="primary"
+                            <Tooltip placement={"right"}
+                                     title={"Status: " + (vpp.published ? "veröffentlicht" : "nicht veröffentlicht")}>
+                                <Button onClick={e => onSelectVpp(vpp.virtualPowerPlantId)} type="primary"
                                     htmlType="submit">
-                                {vpp.virtualPowerPlantId}
-                            </Button>
+                                    {vpp.virtualPowerPlantId}
+                                </Button>
+                            </Tooltip>
                         )
                     })
                 }

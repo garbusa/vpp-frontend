@@ -3,15 +3,16 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
-import {Button, Input, Modal, Popconfirm, Steps, Table} from "antd";
+import {Button, Col, Popconfirm, Row, Table} from "antd";
 import history from "../../../../history";
 import {PlusOutlined} from '@ant-design/icons';
+import {CreateStepComponent} from "../../../ui/step/CreateStepComponent";
+import {DppForm} from "../../../ui/data-forms/vpp/DppForm";
 
 const AddDppsComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
 
-    const {Step} = Steps;
     const columns = [
         {
             title: 'Dezentrale Kraftwerke',
@@ -21,14 +22,14 @@ const AddDppsComponent = observer((props) => {
     ];
 
     useEffect(() => {
-        if (store.masterdataStore.creatingState.step !== 1) {
-            if (store.masterdataStore.creatingState.step === 0) {
+        if (store.vppStore.creatingState.step !== 1) {
+            if (store.vppStore.creatingState.step === 0) {
                 history.push("/erstellen")
             }
-            if (store.masterdataStore.creatingState.step === 2) {
+            if (store.vppStore.creatingState.step === 2) {
                 history.push("/erstellen/schritt-2")
             }
-            if (store.masterdataStore.creatingState.step === 3) {
+            if (store.vppStore.creatingState.step === 3) {
                 history.push("/erstellen/schritt-3")
             }
         } else {
@@ -37,48 +38,40 @@ const AddDppsComponent = observer((props) => {
 
     }, []);
 
-    const acceptAddDpp = () => {
-        if (store.masterdataStore.stepOneState.dppName !== '' && store.masterdataStore.stepOneState.dppName.length > 3) {
-            let dto = {decentralizedPowerPlantId: store.masterdataStore.stepOneState.dppName};
-            store.masterdataStore.saveDpp(dto, store.masterdataStore.creatingState.vppId).then((result) => {
-                if (result.success) {
-                    store.masterdataStore.stepOneState.isAddingDpp = false;
-                    store.masterdataStore.resetStepOneModals();
-                    fetchDpps();
-                    enqueueSnackbar(result.message, {variant: result.variant})
-                } else {
-                    enqueueSnackbar(result.message, {variant: result.variant})
-                }
-            });
-        } else {
-            enqueueSnackbar("Der Name des DK muss min. 4 Zeichen enthalten", {variant: "error"})
-        }
+    const onFinishCreateDpp = (record) => {
+        store.vppStore.saveDpp(record, store.vppStore.creatingState.vppId).then((result) => {
+            if (result.success) {
+                store.vppStore.stepOneState.isAddingDpp = false;
+                fetchDpps();
+                enqueueSnackbar(result.message, {variant: result.variant})
+            } else {
+                enqueueSnackbar(result.message, {variant: result.variant})
+            }
+        });
+
     };
 
-    const cancelAddDpp = () => {
-        store.masterdataStore.stepOneState.isAddingDpp = false;
+    const onCancelCreateDpp = () => {
+        store.vppStore.stepOneState.isAddingDpp = false;
     };
 
     const onOpenAddDppModal = () => {
-        store.masterdataStore.stepOneState.isAddingDpp = true;
-    };
-
-    const onDppNameChange = (e) => {
-        store.masterdataStore.stepOneState.dppName = e.target.value;
+        store.vppStore.stepOneState.isAddingDpp = true;
     };
 
     const onForward = () => {
-        store.masterdataStore.creatingState.step = 2;
+        store.vppStore.creatingState.step = 2;
         history.push('/erstellen/schritt-2');
     };
 
     const onEnd = () => {
-        store.masterdataStore.resetStateOnEnd();
-        history.push('/erstellen');
+        store.vppStore.resetCreatingState();
+        enqueueSnackbar("Der Prozess wurde erfolgreich beendet", {variant: "success"});
+        history.push('/bearbeiten');
     };
 
     const fetchDpps = () => {
-        store.masterdataStore.getDppsByVpp(store.masterdataStore.creatingState.vppId).then(
+        store.vppStore.getDppsByVpp(store.vppStore.creatingState.vppId).then(
             (result) => {
                 if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
@@ -89,43 +82,49 @@ const AddDppsComponent = observer((props) => {
 
     return (
         <div className={'create-vpp'}>
-            <Steps size="small" current={1}>
-                <Step title="Prozess starten"/>
-                <Step title="Dez. Kraftwerke"/>
-                <Step title="Haushalte"/>
-                <Step title="Erzeugungs- und Speicheranlagen"/>
-            </Steps>
-            <h2>Schritt 1: Hinzufügen dezentraler Kraftwerke</h2>
+            <CreateStepComponent currentStep={1}/>
+            <h2 style={{marginTop: 32}}>Schritt 1: Hinzufügen dezentraler Kraftwerke</h2>
             <p>Ein virtuelles Kraftwerk beinhaltet beliebig viele dez. Kraftwerke. In diesem Schritt werden diese dem
                 virtuellen Kraftwerk hinzugefügt.</p>
-            <Table dataSource={store.masterdataStore.dpps} columns={columns}/>
-            <Button onClick={onOpenAddDppModal} type="primary" icon={<PlusOutlined/>}>
-                Dez. Kraftwerk hinzufügen
-            </Button>
-            <Popconfirm
-                title="Möchtest du diesen Prozess wirklich beenden?"
-                onConfirm={onEnd}
-                onCancel={() => {
-                }}
-                okText="Ja"
-                cancelText="Nein"
-            >
-                <Button type="primary">
-                    Prozess beenden
-                </Button>
-            </Popconfirm>
-            <Button onClick={onForward} type="primary">
-                Weiter zu Schritt 2
-            </Button>
+            <Table dataSource={store.vppStore.dpps} columns={columns}/>
 
-            <Modal title="Dez. Kraftwerk hinzufügen" visible={store.masterdataStore.stepOneState.isAddingDpp}
-                   onOk={acceptAddDpp} onCancel={cancelAddDpp}>
-                <p>Ein dez. Kraftwerk besteht zunächst nur aus einem Namen. Diesem Kraftwerk werden in den nächsten
-                    Schritten
-                    Erzeugungsanlagen und Speichersysteme hinzugefügt.</p>
-                <Input value={store.masterdataStore.stepOneState.dppName} onChange={(e) => onDppNameChange(e)}
-                       placeholder="Name des dez. Kraftwerks"/>
-            </Modal>
+            <Row style={{marginTop: 16}}>
+                <Col>
+                    <Button onClick={onOpenAddDppModal} type="primary" icon={<PlusOutlined/>}>
+                        Dez. Kraftwerk hinzufügen
+                    </Button>
+                </Col>
+            </Row>
+
+            <Row style={{marginTop: 16}} justify="end">
+                <Col>
+                    <Popconfirm
+                        title="Möchtest du diesen Prozess wirklich beenden?"
+                        onConfirm={onEnd}
+                        onCancel={() => {
+                        }}
+                        okText="Ja"
+                        cancelText="Nein"
+                    >
+                        <Button style={{marginRight: 8}}>
+                            Prozess beenden
+                        </Button>
+                    </Popconfirm>
+                </Col>
+                <Col>
+                    <Button onClick={onForward} type="primary">
+                        Weiter zu Schritt 2
+                    </Button>
+                </Col>
+            </Row>
+
+
+            <DppForm
+                visible={store.vppStore.stepOneState.isAddingDpp}
+                onFinish={onFinishCreateDpp}
+                onCancel={onCancelCreateDpp}
+                editing={false}
+            />
         </div>
 
     );

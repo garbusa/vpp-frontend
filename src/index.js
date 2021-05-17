@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'antd/dist/antd.css';
-import App from './App';
+import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 import {Router} from 'react-router-dom';
 
@@ -16,7 +16,7 @@ ReactDOM.render(
         <RootStore>
             <Router history={history}>
                 <SnackbarProvider maxSnack={3} anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'right',
                 }}>
                     <App/>
