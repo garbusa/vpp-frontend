@@ -94,7 +94,8 @@ const EditComponent = observer((props) => {
                         return (
                             <Tooltip placement={"right"}
                                      title={"Status: " + (vpp.published ? "veröffentlicht" : "nicht veröffentlicht")}>
-                                <Button onClick={e => onSelectVpp(vpp.virtualPowerPlantId)} type="primary"
+                                <Button style={{marginRight: 8}} onClick={e => onSelectVpp(vpp.virtualPowerPlantId)}
+                                        type="primary"
                                         htmlType="submit">
                                     {vpp.virtualPowerPlantId}
                                 </Button>
