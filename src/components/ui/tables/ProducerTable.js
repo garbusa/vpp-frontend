@@ -4,6 +4,10 @@ import {Button, Table} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import React from "react";
 
+/**
+ * Diese Komponente bildet die aktuellen Erzeugungsanlagen eines DK/Haushalts ab
+ * @type {Function}
+ */
 export const ProducerTable = observer((props) => {
 
     const {onOpenCreate, onOpenEdit, onDelete, combine, dppOrHouseholdId} = props;

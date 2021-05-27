@@ -3,6 +3,10 @@ import React, {useContext} from "react";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {observer} from "mobx-react";
 
+/**
+ * In dieser Komponente können bestehende Maßnahmenabfragen eingesehen und abgerufen werden
+ * @type {function(): *}
+ */
 export const ActionRequestCallModal = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
 

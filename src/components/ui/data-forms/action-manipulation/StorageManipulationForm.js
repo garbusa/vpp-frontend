@@ -5,6 +5,10 @@ import {RootStoreContext} from "../../../../store/RootStore";
 import {observer} from "mobx-react";
 import moment from "moment";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für eine Speichermanipulation ab
+ * @type {function(): *}
+ */
 export const StorageManipulationForm = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
     const {enqueueSnackbar} = useSnackbar();

@@ -9,6 +9,10 @@ import {PlusOutlined} from '@ant-design/icons';
 import {CreateStepComponent} from "../../../ui/step/CreateStepComponent";
 import {HouseholdForm} from "../../../ui/data-forms/vpp/HouseholdForm";
 
+/**
+ * Diese Komponente beinhaltet den Schritt, um Haushalte einem VK hinzuzufügen
+ * @type {React.FunctionComponent<object>}
+ */
 const AddHouseholdsComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
@@ -111,7 +115,7 @@ const AddHouseholdsComponent = observer((props) => {
             <Row style={{marginTop: 16}} justify="end">
                 <Col>
                     <Popconfirm
-                        title="Möchtest du diesen Prozess wirklich beenden?"
+                        title="Möchten Sie diesen Prozess wirklich beenden?"
                         onConfirm={onEnd}
                         onCancel={() => {
                         }}

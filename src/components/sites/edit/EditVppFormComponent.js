@@ -7,6 +7,10 @@ import {DeleteOutlined} from '@ant-design/icons';
 import {EditVppForm} from "../../ui/data-forms/vpp/EditVppForm";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet die Bearbeitung eines aktuellen VK ab
+ * @type {Function}
+ */
 const EditVppFormComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
@@ -68,7 +72,7 @@ const EditVppFormComponent = observer((props) => {
                         <h3 style={{marginTop: 32}}>Aktionen für virtuelle Kraftwerke</h3>
                         <Space size="middle">
                             <Popconfirm
-                                title={"Möchtest du wirklich das gesamte virtuelle Kraftwerk löschen?"}
+                                title={"Möchten Sie wirklich das gesamte virtuelle Kraftwerk löschen?"}
                                 onConfirm={() => onDeleteVpp(store.vppStore.editState.vppId)}
                                 okText="Ja"
                                 cancelText="Nein"

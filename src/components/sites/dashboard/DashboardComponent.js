@@ -13,6 +13,10 @@ import {ActionRequestCatalogModal} from "../../ui/modals/action-request/ActionRe
 import {ActionRequestComponent} from "./ActionRequestComponent";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet die Dashboard Webseite ab
+ * @type {Function}
+ */
 const DashboardComponent = observer(() => {
 
     const {enqueueSnackbar} = useSnackbar();

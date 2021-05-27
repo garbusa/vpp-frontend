@@ -2,6 +2,10 @@ import {Button, Modal} from "antd";
 import React from "react";
 import {observer} from "mobx-react";
 
+/**
+ * In dieser Komponente wird abgefragt, welche Art von Erzeugungsanlage erstellt werden soll
+ * @type {function(*): *}
+ */
 export const CreateProducerMenuModal = observer((props) => {
     const {visible, onOpenWater, onOpenWind, onOpenSolar, onOpenOther, onCancel} = props;
 

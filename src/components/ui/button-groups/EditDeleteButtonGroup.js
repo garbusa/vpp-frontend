@@ -3,6 +3,10 @@ import {Button, Popconfirm, Space} from "antd";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import React from "react";
 
+/**
+ * Diese Komponente bildet eine Schaltflächen-Gruppe ab (Bearbeiten und Löschen Button)
+ * @type {function(*): *}
+ */
 export const EditDeleteButtonGroup = observer((props) => {
     const {onEdit, onDelete, id, type} = props;
 

@@ -5,6 +5,10 @@ import React, {useContext} from "react";
 import {observer} from "mobx-react";
 import {RootStoreContext} from "../../../store/RootStore";
 
+/**
+ * Diese Komponente bildet die Liste der Manipulationen der aktuellen Maßnahmenabafrage ab
+ * @type {Function}
+ */
 export const ActionManipulationTable = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
 
@@ -26,7 +30,7 @@ export const ActionManipulationTable = observer(() => {
                     startTimestamp: manipulation.startTimestamp,
                     endTimestamp: manipulation.endTimestamp,
                     type: manipulation.type,
-                    manipulation: manipulation.ratedPower + " kWh für " + manipulation.hours
+                    manipulation: manipulation.ratedPower + " kW für " + manipulation.hours
                 });
             });
             vppStore.dashboardState.selectedActionRequest.gridManipulations.forEach((manipulation) => {
@@ -87,7 +91,7 @@ export const ActionManipulationTable = observer(() => {
                                }
                            },
                            {
-                               title: 'Manipulationstype',
+                               title: 'Manipulationstyp',
                                dataIndex: 'type',
                                key: 'type',
                                render: (property) => {
@@ -122,7 +126,7 @@ export const ActionManipulationTable = observer(() => {
                                    } else if (record.type === "STORAGE_LOAD" || record.type === "STORAGE_UNLOAD") {
                                        return <div> {property} Stunde(n)</div>
                                    } else if (record.type === "GRID_LOAD" || record.type === "GRID_UNLOAD") {
-                                       return <div> {property} kWh</div>
+                                       return <div> {property} kW</div>
                                    } else {
                                        return <div>-</div>
                                    }

@@ -1,6 +1,12 @@
 import {Steps} from "antd";
 import React from "react";
 
+/**
+ * Diese Komponente bildet den aktuellen Schritt während des Hinzufügens eines VK
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export const CreateStepComponent = (props) => {
     const {Step} = Steps;
     return (

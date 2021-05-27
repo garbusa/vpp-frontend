@@ -7,7 +7,11 @@ import {observer} from "mobx-react";
 import {LoadProductionChart} from "../../ui/chart/LoadProductionChart";
 import {DataLoading} from "../../ui/loading/DataLoading";
 
-
+/**
+ * Diese Komponente beinhaltet bildet die Handlungsempfehlungen, Manipulationen und Last- und Erzeugungsübersicht
+ * im Dashboard ab
+ * @type {Function}
+ */
 export const ActionRequestComponent = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
 
@@ -16,8 +20,7 @@ export const ActionRequestComponent = observer(() => {
         if (vppStore.dashboardState.selectedActionRequest.status === "FINISHED") {
             return <Row style={{marginTop: 32}}>
                 <Col>
-                    <p>Auf dieser Webseite können Sie die aktuellen Handlungsvorschläge mit den dazugehörigen
-                        Maßnahmenkatalogen,<br/>
+                    <p>Auf dieser Webseite können Sie die die Handlungsempfehlungen aus den Katalogen entnehmen,<br/>
                         sowie die durchgeführten Manipulationen einsehen. Die Grafik gibt die Tagesprognose für die
                         nächsten 24 Stunden aus.</p>
                 </Col>

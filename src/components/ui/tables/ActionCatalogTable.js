@@ -3,6 +3,10 @@ import React, {useContext} from "react";
 import {RootStoreContext} from "../../../store/RootStore";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet die Liste der Handlungsempfehlungskataloge der aktuellen Maßnahmenabafrage ab
+ * @type {Function}
+ */
 export const ActionCatalogTable = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
 
@@ -17,7 +21,7 @@ export const ActionCatalogTable = observer(() => {
     if (vppStore.dashboardState.selectedActionRequest.catalogs.length > 0) {
         return <Row>
             <Col span={24}>
-                <h3>Maßnahmenübersicht</h3>
+                <h3>Handlungsempfehlungekataloge</h3>
                 {vppStore.dashboardState.selectedActionRequest.catalogs !== undefined &&
                 <Table pagination={{pageSize: 4}} size="small"
                        dataSource={vppStore.dashboardState.selectedActionRequest.catalogs.slice()}
@@ -56,9 +60,9 @@ export const ActionCatalogTable = observer(() => {
                                key: 'problemType',
                                render: (type) => {
                                    if (type === "SHORTAGE") {
-                                       return "Stromengpass"
+                                       return "Energieengpass"
                                    } else if (type === "OVERFLOW") {
-                                       return "Stromüberfluss"
+                                       return "Energieüberschuss"
                                    } else {
                                        return null;
                                    }
@@ -69,7 +73,7 @@ export const ActionCatalogTable = observer(() => {
                                key: 'action',
                                render: (text, record) => (
                                    <Button
-                                       onClick={() => onOpenActionCatalog(record)}>Maßnahmenkatalog</Button>
+                                       onClick={() => onOpenActionCatalog(record)}>Zum Katalog</Button>
                                ),
                            },
                        ]}/>
@@ -80,9 +84,9 @@ export const ActionCatalogTable = observer(() => {
     } else {
         return <Row>
             <Col>
-                <h3>Maßnahmenübersicht</h3>
+                <h3>Handlungsempfehlungekataloge</h3>
                 <Alert
-                    description="Für diese Maßnahmenabfrage existieren keine Maßnahmenkataloge"
+                    description="Für diese Maßnahmenabfrage existieren keine Handlungsempfehlungekataloge"
                     type="info"
                 />
             </Col>

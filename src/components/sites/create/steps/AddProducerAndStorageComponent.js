@@ -8,6 +8,11 @@ import history from "../../../../history";
 import {CreateStepComponent} from "../../../ui/step/CreateStepComponent";
 import {EditVppForm} from "../../../ui/data-forms/vpp/EditVppForm";
 
+
+/**
+ * Diese Komponente beinhaltet den Schritt, um Erzeugungs- und Speicheranlagen einem VK hinzuzufügen
+ * @type {React.FunctionComponent<object>}
+ */
 const AddProducerAndStorageComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
@@ -54,7 +59,7 @@ const AddProducerAndStorageComponent = observer((props) => {
                 </Col>
                 <Col>
                     <Popconfirm
-                        title="Möchtest du diesen Prozess wirklich beenden?"
+                        title="Möchten Sie diesen Prozess wirklich beenden?"
                         onConfirm={onEnd}
                         onCancel={() => {
                         }}

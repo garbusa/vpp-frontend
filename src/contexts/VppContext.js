@@ -58,6 +58,11 @@ import {getAllProductionsByActionRequestId, isProductionHealthy} from "../servic
 
 configure({enforceActions: "never"});
 
+/**
+ * Speichert bei Änderungen den Zustand im Browser
+ * @param _this
+ * @param name
+ */
 function autoSave(_this, name) {
     const storedJson = localStorage.getItem(name);
     if (storedJson) {
@@ -72,12 +77,18 @@ function autoSave(_this, name) {
 const initialValues = {
     servicesOnline: false,
 
+    /**
+     * allgemeine Zustände, die von mehreren Webseiten aktualisiert und verwendet werden
+     */
     vpps: [],
     activeVpps: [],
     dpps: [],
     households: [],
     isLoading: false,
 
+    /**
+     * Zustand beim Editieren eines VKs
+     */
     editState: {
         step: 0,
         vppId: undefined,
@@ -170,6 +181,10 @@ const initialValues = {
         }
 
     },
+
+    /**
+     * Zustand beim Hinzufügen eines VKs
+     */
     creatingState: {
         step: 0,
         vppId: undefined,
@@ -262,6 +277,9 @@ const initialValues = {
 
     },
 
+    /**
+     * Zustand während dem ersten Schritts beim Hinzufügen eines Vks
+     */
     stepOneState: {
         isAddingDpp: false,
         dpp: {
@@ -269,6 +287,9 @@ const initialValues = {
         }
     },
 
+    /**
+     * Zustand während dem zweiten Schritts beim Hinzufügen eines Vks
+     */
     stepTwoState: {
         isAddingHousehold: false,
         household: {
@@ -277,6 +298,9 @@ const initialValues = {
         },
     },
 
+    /**
+     * Zustand im Dashboard
+     */
     dashboardState: {
         selectedVppId: undefined,
 
@@ -345,7 +369,7 @@ const initialValues = {
             startTimestamp: undefined,
             endTimestamp: undefined,
             problemType: undefined,
-            cumulativeGap: undefined,
+            averageGap: undefined,
             actions: []
         },
 
@@ -359,6 +383,12 @@ const initialValues = {
 
 };
 
+/**
+ * Beinhaltet Resetfunktionen für einzelne States und ruft die Methoden der Services für die REST-Anfragen zu den
+ * Microservices auf
+ * @returns {{dpps, isLoading, dashboardState, servicesOnline, creatingState, stepOneState, stepTwoState, activeVpps, vpps, editState, households}&{saveSolarToHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), scheduleActionRequestByVppId: (function(*=): (* | {success: *, variant: string, message: *})), getDppById: (function(*=): (* | {success: *, variant: string, message: *})), deleteWater: (function(*=, *=): (* | {success: *, variant: string, message: *})), saveDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), publishVpp: (function(*=): (* | {success: *, variant: string, message: *})), saveStorageToDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), updateDpp: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), getAllVppsAction: (function(): (* | {success: *, variant: string, message: *})), setProductionsLabels: setProductionsLabels, resetCreatingState: resetCreatingState, updateHousehold: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), updateWater: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), saveVpp: (function(*=): (* | {success: *, variant: string, message: *})), deleteSolar: (function(*=, *=): (* | {success: *, variant: string, message: *})), unpublishVpp: (function(*=): (* | {success: *, variant: string, message: *})), getOtherById: (function(*=): (* | {success: *, variant: string, message: *})), resetAddingProducerManipulation: resetAddingProducerManipulation, getSolarById: (function(*=): (* | {success: *, variant: string, message: *})), setLoadsDataset: setLoadsDataset, resetAddingRequest: resetAddingRequest, deleteDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), saveWaterToHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), deleteStorage: (function(*=, *=): (* | {success: *, variant: string, message: *})), updateWind: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), saveOtherToDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), resetSelectedActionRequests: resetSelectedActionRequests, setProductionsDataset: setProductionsDataset, deleteHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), updateOther: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), getWindById: (function(*=): (* | {success: *, variant: string, message: *})), updateVpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), getActionRequestById: (function(*=): (* | {success: *, variant: string, message: *})), saveHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), getHouseholdById: (function(*=): (* | {success: *, variant: string, message: *})), saveOtherToHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), getAllActionRequestsByVppId: (function(*=): (* | {success: *, variant: string, message: *})), getAllLoadsByActionRequestId: (function(*=): (* | {success: *, variant: string, message: *})), resetAddingStorageManipulation: resetAddingStorageManipulation, getStorageById: (function(*=): (* | {success: *, variant: string, message: *})), isHealthy: (function(): (* | boolean)), deleteVpp: (function(*=): (* | {success: *, variant: string, message: *})), getAllActiveVppsAction: (function(): (* | {success: *, variant: string, message: *})), saveWindToDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), updateSolar: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), resetAddingGridManipulation: resetAddingGridManipulation, saveWindToHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), saveStorageToHousehold: (function(*=, *=): (* | {success: *, variant: string, message: *})), getAllProductionsByActionRequestId: (function(*=): (* | {success: *, variant: string, message: *})), getDppsByVpp: (function(*=): (* | {success: *, variant: string, message: *})), deleteOther: (function(*=, *=): (* | {success: *, variant: string, message: *})), getVppById: (function(*=): (* | {success: *, variant: string, message: *})), saveWaterToDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), getWaterById: (function(*=): (* | {success: *, variant: string, message: *})), saveSolarToDpp: (function(*=, *=): (* | {success: *, variant: string, message: *})), getHouseholdsByVpp: (function(*=): (* | {success: *, variant: string, message: *})), updateStorage: (function(*=, *=, *=): (* | {success: *, variant: string, message: *})), deleteWind: (function(*=, *=): (* | {success: *, variant: string, message: *})), setLoadsLabels: setLoadsLabels}}
+ * @constructor
+ */
 const VppContext = () => {
 
     useEffect(() => {

@@ -4,6 +4,10 @@ import {useSnackbar} from "notistack";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {observer} from "mobx-react";
 
+/**
+ * In dieser Komponente wird abgefragt, ob eine neue oder bestehende Maßnahmenabfrage angefragt werden soll
+ * @type {function(*): *}
+ */
 export const ActionRequestMenuModal = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
 
@@ -53,8 +57,8 @@ export const ActionRequestMenuModal = observer(() => {
                 </Button>
             ]}
         >
-            <p>Bei der Erstellung einer neuen Maßnahmenabfrage wird eine 24-stündige Lasten- und Erzeugungsprognose
-                für das ausgewählte virtuelle Kraftwerk erzeugt. Dazu werden Indifferenzen der Last und Erzeugung
+            <p>Bei der Erstellung einer neuen Maßnahmenabfrage wird eine 24-stündige Last- und Erzeugungsprognose
+                für das ausgewählte virtuelle Kraftwerk erzeugt. Dazu werden Differenzen zwischen der Last und Erzeugung
                 erkannt und
                 Handlungsempfehlungen in Form eines Katalogs abgegeben.</p>
             <p>Möchten Sie eine neue Anfrage erstellen oder eine vorherige laden?</p>

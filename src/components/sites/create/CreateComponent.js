@@ -6,6 +6,10 @@ import {useSnackbar} from "notistack";
 import {Button, Col, Form, Input, Row} from "antd";
 import history from "../../../history";
 
+/**
+ * Diese Komponente startet den Prozess für die Erstellung eines VK
+ * @type {React.FunctionComponent<object>}
+ */
 const CreateComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);

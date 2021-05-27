@@ -4,6 +4,10 @@ import {Button, Table} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import React from "react";
 
+/**
+ * Diese Komponente bildet die aktuellen Speicheranlagen eines DK/Haushalts ab
+ * @type {Function}
+ */
 export const StorageTable = observer((props) => {
 
     const {onOpenCreate, onOpenEdit, onDelete, combine, dppOrHouseholdId} = props;

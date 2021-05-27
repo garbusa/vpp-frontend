@@ -1,10 +1,14 @@
 import {ACTION_SERVICE_URL} from '../constants'
 import axios from 'axios'
 
+/**
+ * API Entry URL
+ * @type {string}
+ */
 const API_ENTRYPOINT = ACTION_SERVICE_URL + '/action/api';
 
 /**
- * Load Calls
+ * REST-Anfragen an den Maßnahmen-Service
  */
 
 export async function isActionHealthy() {

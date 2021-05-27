@@ -2,7 +2,10 @@ import {Button, Form, Input, Modal} from "antd/lib/index";
 import React from "react";
 import {observer} from "mobx-react";
 
-
+/**
+ * Diese Komponente bildet die Eingabemaske für ein DK ab
+ * @type {function(*): *}
+ */
 export const DppForm = observer((props) => {
 
     const {visible, onFinish, onCancel, editing, dpp} = props;

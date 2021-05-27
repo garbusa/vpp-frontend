@@ -2,6 +2,10 @@ import {Button, Form, Input, InputNumber, Modal} from "antd";
 import React from "react";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für ein Haushalt ab
+ * @type {function(*): *}
+ */
 export const HouseholdForm = observer((props) => {
     const {visible, onFinish, onCancel, editing, household} = props;
 

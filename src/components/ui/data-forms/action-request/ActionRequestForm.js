@@ -6,7 +6,10 @@ import {useSnackbar} from "notistack";
 import {EditDeleteButtonGroup} from "../../button-groups/EditDeleteButtonGroup";
 import {Alert} from "antd";
 
-
+/**
+ * Diese Komponente bildet die Eingabemaske für eine Maßnahmenabfrage ab
+ * @type {function(): *}
+ */
 export const ActionRequestForm = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
     const vppStore = useContext(RootStoreContext).vppStore;
@@ -137,7 +140,7 @@ export const ActionRequestForm = observer(() => {
         width={1000}
     >
         <p>
-            Wenn Sie bereits Handlungsvorschläge bekommen haben, können Sie diese durch sogenante Manipulationen
+            Wenn Sie bereits Handlungsempfehlungen bekommen haben, können Sie diese durch sogenannte Manipulationen
             realisieren.<br/>
             Bei Manipulationen werden die aktuellen Kapazitäten der Anlagen manipuliert, die bei der Erzeugungsprognose
             dieser Maßnahmenabfrage berücksichtigt werden.
@@ -166,7 +169,7 @@ export const ActionRequestForm = observer(() => {
                 <Col>
                     <Form.Item
                         style={{marginRight: 16}}
-                        label="Stromengpass Schwelle (kWh)"
+                        label="Energieengpass Schwelle (kW)"
                         name="shortageThreshold"
                         rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
                     >
@@ -175,7 +178,7 @@ export const ActionRequestForm = observer(() => {
                 </Col>
                 <Col>
                     <Form.Item
-                        label="Stromüberfluss Schwelle (kWh)"
+                        label="Energieüberschuss Schwelle (kW)"
                         name="overflowThreshold"
                         rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
                     >
@@ -368,7 +371,7 @@ export const ActionRequestForm = observer(() => {
                            dataIndex: 'ratedPower',
                            key: 'ratedPower',
                            render: (value) => {
-                               return value + " kWh"
+                               return value + " kW"
                            }
                        }, {
                            title: 'Aktionen',

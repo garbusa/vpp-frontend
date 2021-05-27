@@ -3,6 +3,10 @@ import React, {useContext} from "react";
 import {RootStoreContext} from "../../../../store/RootStore";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet einen Handlungsmaßnahmenkatalog ab
+ * @type {function(*): *}
+ */
 export const ActionRequestCatalogModal = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
 
@@ -49,13 +53,13 @@ export const ActionRequestCatalogModal = observer(() => {
 
     const getProblemType = (type) => {
         if (type === "SHORTAGE") {
-            return "Stromengpass";
+            return "Energieengpass";
         } else if (type === "OVERFLOW") {
-            return "Stromüberfluss";
+            return "Energieüberschuss";
         } else {
             return null;
         }
-    }
+    };
 
     return (<Modal
         closable={false}
@@ -71,7 +75,7 @@ export const ActionRequestCatalogModal = observer(() => {
                 onBlur={() => {
                 }}
             >
-                Maßnahmenkatalog
+                Handlungsempfehlungskatalog
             </div>
         }
         visible={vppStore.dashboardState.isViewingActionCatalog}
@@ -84,7 +88,7 @@ export const ActionRequestCatalogModal = observer(() => {
         <p>Zeitraum: {timestampToLocalString(vppStore.dashboardState.selectedActionCatalog.startTimestamp)} bis {timestampToLocalString(vppStore.dashboardState.selectedActionCatalog.endTimestamp)}</p>
         <p>Art des Problems: {getProblemType(vppStore.dashboardState.selectedActionCatalog.problemType)}</p>
         <p>Durchschnittliche
-            Energielücke: {vppStore.dashboardState.selectedActionCatalog.cumulativeGap} kWh</p>
+            Energielücke: {vppStore.dashboardState.selectedActionCatalog.averageGap} kW</p>
         <h2>Lösungsvorschläge mittels Erzeugungsanlagen</h2>
         <Table pagination={{pageSize: 4}} size="small"
                dataSource={vppStore.dashboardState.selectedActionCatalog.actions.filter((action) => !action.isStorage).slice()}
@@ -111,7 +115,7 @@ export const ActionRequestCatalogModal = observer(() => {
                        dataIndex: 'actionValue',
                        key: 'actionValue',
                        render: (value) => {
-                           return value + " kWh"
+                           return value + " kW"
                        }
                    }
                ]}/>
@@ -142,7 +146,7 @@ export const ActionRequestCatalogModal = observer(() => {
                        dataIndex: 'actionValue',
                        key: 'actionValue',
                        render: (value) => {
-                           return value + " kWh"
+                           return value + " kW"
                        }
                    },
                    {
@@ -157,7 +161,7 @@ export const ActionRequestCatalogModal = observer(() => {
 
         <h2>Alternative Lösungsvorschläge</h2>
         <p>Falls die zuvor genannten Lösungsvorschläge nicht ausreichend sind, können Sie folgende Vorschläge
-            durchgeführt werden:</p>
+            durchführen:</p>
         {ActionAlternatives()}
     </Modal>);
 });

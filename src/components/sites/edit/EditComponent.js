@@ -6,6 +6,10 @@ import {useSnackbar} from "notistack";
 import {Alert, Button, Col, Row, Tooltip} from "antd";
 import EditVppFormComponent from "./EditVppFormComponent";
 
+/**
+ * Diese Komponente bildet die "VK bearbeiten" Webseite ab
+ * @type {React.FunctionComponent<object> | (Function & {displayName: string})}
+ */
 const EditComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
@@ -31,7 +35,11 @@ const EditComponent = observer((props) => {
                 () => {
                     fetchDpps(vppId).then(() => {
                         store.vppStore.editState.vppId = vppId;
+                    }, () => {
+                        store.vppStore.editState.vppId = undefined;
                     });
+                }, () => {
+                    store.vppStore.editState.vppId = undefined;
                 }
             );
         });
@@ -87,7 +95,7 @@ const EditComponent = observer((props) => {
                             <Tooltip placement={"right"}
                                      title={"Status: " + (vpp.published ? "veröffentlicht" : "nicht veröffentlicht")}>
                                 <Button onClick={e => onSelectVpp(vpp.virtualPowerPlantId)} type="primary"
-                                    htmlType="submit">
+                                        htmlType="submit">
                                     {vpp.virtualPowerPlantId}
                                 </Button>
                             </Tooltip>

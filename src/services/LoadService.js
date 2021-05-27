@@ -4,7 +4,7 @@ import axios from 'axios'
 const API_ENTRYPOINT = LOAD_SERVICE_URL + '/load/api';
 
 /**
- * Load Calls
+ * REST-Anfragen an den Lasten-Service
  */
 export async function isLoadHealthy() {
     return await axios.get(API_ENTRYPOINT + "/actuator/health")

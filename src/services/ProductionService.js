@@ -4,9 +4,8 @@ import axios from 'axios'
 const API_ENTRYPOINT = PRODUCTION_SERVICE_URL + '/production/api';
 
 /**
- * Load Calls
+ * REST-Anfragen an den Erzeugungs-Service
  */
-
 export async function isProductionHealthy() {
     return await axios.get(API_ENTRYPOINT + "/actuator/health")
 }

@@ -2,6 +2,10 @@ import {Button, Col, Form, Input, InputNumber, Modal, Row, Slider, Tooltip} from
 import React from "react";
 import {observer} from "mobx-react";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für eine alternative Erzeugungsanlage ab
+ * @type {function(*): *}
+ */
 export const OtherEnergyForm = observer((props) => {
 
     const {visible, onFinish, onCancel, editing, otherEnergy} = props;

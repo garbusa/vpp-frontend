@@ -2,6 +2,10 @@ import {observer} from "mobx-react";
 import {Button, Col, Form, Input, InputNumber, Modal, Row, Slider, Tooltip} from "antd/lib/index";
 import React from "react";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für eine Wasserkraftanlage ab
+ * @type {function(*): *}
+ */
 export const WaterEnergyForm = observer((props) => {
 
     const {visible, onFinish, onCancel, editing, waterEnergy} = props;

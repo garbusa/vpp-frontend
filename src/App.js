@@ -17,6 +17,11 @@ import {observer} from "mobx-react";
 
 const {Header, Content, Sider} = Layout;
 
+/**
+ * Diese Komponente ist die Haupt-Komponente der Applikation und beinhaltet das Layout,
+ * sowie das Routing-Template für die einzelnen Webseiten
+ * @type {function(): *}
+ */
 export const App = observer(() => {
     const [collapsed, setCollapse] = useState(false);
 

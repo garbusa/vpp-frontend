@@ -5,6 +5,10 @@ import {observer} from "mobx-react";
 import {useSnackbar} from "notistack";
 import moment from "moment";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für eine Erzeugungsmanipulation ab
+ * @type {function(): *}
+ */
 export const ProducerManipulationForm = observer((props) => {
 
     const vppStore = useContext(RootStoreContext).vppStore;

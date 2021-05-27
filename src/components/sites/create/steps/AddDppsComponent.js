@@ -9,6 +9,10 @@ import {PlusOutlined} from '@ant-design/icons';
 import {CreateStepComponent} from "../../../ui/step/CreateStepComponent";
 import {DppForm} from "../../../ui/data-forms/vpp/DppForm";
 
+/**
+ * Diese Komponente beinhaltet den Schritt, um DKs einem VK hinzuzufügen
+ * @type {React.FunctionComponent<object>}
+ */
 const AddDppsComponent = observer((props) => {
     const {enqueueSnackbar} = useSnackbar();
     const store = useContext(RootStoreContext);
@@ -99,7 +103,7 @@ const AddDppsComponent = observer((props) => {
             <Row style={{marginTop: 16}} justify="end">
                 <Col>
                     <Popconfirm
-                        title="Möchtest du diesen Prozess wirklich beenden?"
+                        title="Möchten Sie diesen Prozess wirklich beenden?"
                         onConfirm={onEnd}
                         onCancel={() => {
                         }}

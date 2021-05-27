@@ -5,6 +5,10 @@ import {RootStoreContext} from "../../../../store/RootStore";
 import {useSnackbar} from "notistack";
 import moment from "moment";
 
+/**
+ * Diese Komponente bildet die Eingabemaske für eine Stromnetzmanipulation ab
+ * @type {function(): *}
+ */
 export const GridManipulationForm = observer(() => {
     const vppStore = useContext(RootStoreContext).vppStore;
     const {enqueueSnackbar} = useSnackbar();
@@ -168,7 +172,7 @@ export const GridManipulationForm = observer(() => {
                 </Col>
                 <Col>
                     <Form.Item
-                        label="Leistung (kWh)"
+                        label="Leistung (kW)"
                         name="ratedPower"
                         rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
                     >

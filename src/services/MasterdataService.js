@@ -8,7 +8,7 @@ export async function isMasterdataHealthy() {
 }
 
 /**
- * VPP Calls
+ * REST-Anfragen an die VK-Ressource des Daten-Service
  */
 export async function getAllVpps() {
     return await axios.get(API_ENTRYPOINT + "/vpp")
@@ -43,9 +43,8 @@ export async function updateVppById(virtualPowerPlantId, dto) {
 }
 
 /**
- * DPP Calls
+ * REST-Anfragen an die DK-Ressource des Daten-Service
  */
-
 export async function getAllDppByVppId(virtualPowerPlantId) {
     return await axios.get(API_ENTRYPOINT + "/dpp/by/vpp" + "/" + virtualPowerPlantId)
 }
@@ -71,9 +70,8 @@ export async function updateDppById(decentralizedPowerPlantId, virtualPowerPlant
 }
 
 /**
- * Household Calls
+ * REST-Anfragen an die Haushalts-Ressource des Daten-Service
  */
-
 export async function getAllHouseholdByVppId(virtualPowerPlantId) {
     return await axios.get(API_ENTRYPOINT + "/household/by/vpp" + "/" + virtualPowerPlantId)
 }
@@ -99,9 +97,8 @@ export async function updateHouseholdById(householdId, virtualPowerPlantId, dto)
 }
 
 /**
- * WaterEnergy Calls
+ * REST-Anfragen an die Wasserkraftanlagen-Ressource des Daten-Service
  */
-
 export async function getAllWatersByDppId(decentralizedPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +
         "/water/by/dpp" + "/" + decentralizedPowerPlantId)
@@ -138,9 +135,8 @@ export async function updateWaterById(waterEnergyId, virtualPowerPlantId, dto) {
 }
 
 /**
- * WindEnergy Calls
+ * REST-Anfragen an die Windkraftanlagen-Ressource des Daten-Service
  */
-
 export async function getAllWindsByDppId(decentralizedPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +
         "/wind/by/dpp" + "/" + decentralizedPowerPlantId)
@@ -177,9 +173,8 @@ export async function updateWindById(windEnergyId, virtualPowerPlantId, dto) {
 }
 
 /**
- * SolarEnergy Calls
+ * REST-Anfragen an die Solaranlagen-Ressource des Daten-Service
  */
-
 export async function getAllSolarsByDppId(decentralizedPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +
         "/solar/by/dpp" + "/" + decentralizedPowerPlantId)
@@ -217,9 +212,8 @@ export async function updateSolarById(solarEnergyId, virtualPowerPlantId, dto) {
 
 
 /**
- * OtherEnergy Calls
+ * REST-Anfragen an die alternativen Erzeugungsanlagen-Ressource des Daten-Service
  */
-
 export async function getAllOthersByDppId(decentralizedPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +
         "/other/by/dpp" + "/" + decentralizedPowerPlantId)
@@ -255,10 +249,8 @@ export async function updateOtherById(otherEnergyId, virtualPowerPlantId, dto) {
         "/other" + "/" + otherEnergyId + "?virtualPowerPlantId=" + virtualPowerPlantId, dto)
 }
 
-
-
 /**
- * Storage Calls
+ * REST-Anfragen an die Speicheranlagen-Ressource des Daten-Service
  */
 export async function getAllStorageByDppId(decentralizedPowerPlantId) {
     return await axios.get(API_ENTRYPOINT +

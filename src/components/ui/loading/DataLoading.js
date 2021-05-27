@@ -1,6 +1,10 @@
 import {Alert, Col, Row, Spin} from "antd";
 import React from "react";
 
+/**
+ * Diese Komponente bildet eine Ladeanimation ab
+ * @type {function(*): *}
+ */
 export const DataLoading = (props) => {
     return <Row style={{marginTop: 16}} type="flex" align="middle">
         <Col>

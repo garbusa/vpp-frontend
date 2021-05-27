@@ -16,6 +16,10 @@ import {SolarEnergyForm} from "./SolarEnergyForm";
 import {OtherEnergyForm} from "./OtherEnergyForm";
 import {StorageForm} from "./StorageForm";
 
+/**
+ * Diese Komponente beinhaltet die Editierung eines VK mit den dazugehörigen Eingabemasken
+ * @type {function(*): *}
+ */
 export const EditVppForm = observer((props) => {
     const store = useContext(RootStoreContext);
     const {enqueueSnackbar} = useSnackbar();
@@ -629,23 +633,33 @@ export const EditVppForm = observer((props) => {
     };
 
     const fetchHouseholds = () => {
-        store.vppStore.getHouseholdsByVpp(state.vppId).then(
-            (result) => {
-                if (!result.success) {
-                    enqueueSnackbar(result.message, {variant: result.variant});
+        if (state.vppId) {
+            store.vppStore.getHouseholdsByVpp(state.vppId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    }
+                }, () => {
+                    state.vppId = undefined
                 }
-            }
-        )
+            )
+        }
+
     };
 
     const fetchDpps = () => {
-        store.vppStore.getDppsByVpp(state.vppId).then(
-            (result) => {
-                if (!result.success) {
-                    enqueueSnackbar(result.message, {variant: result.variant});
+        if (state.vppId) {
+            store.vppStore.getDppsByVpp(state.vppId).then(
+                (result) => {
+                    if (!result.success) {
+                        enqueueSnackbar(result.message, {variant: result.variant});
+                    }
+                }, () => {
+                    state.vppId = undefined
                 }
-            }
-        )
+            )
+        }
+
     };
 
     return <div>
