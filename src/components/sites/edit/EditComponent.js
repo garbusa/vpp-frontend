@@ -17,9 +17,7 @@ const EditComponent = observer((props) => {
     useEffect(() => {
         store.vppStore.getAllVppsAction().then(
             (result) => {
-                if (result.success) {
-                    enqueueSnackbar(result.message, {variant: result.variant})
-                } else {
+                if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant})
                 }
             }

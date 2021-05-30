@@ -30,10 +30,8 @@ const DashboardComponent = observer(() => {
     useEffect(() => {
         vppStore.getAllActiveVppsAction().then(
             (result) => {
-                if (result.success) {
+                if (!result.success) {
                     enqueueSnackbar(result.message, {variant: result.variant});
-                } else {
-                    enqueueSnackbar(result.message, {variant: result.variant})
                 }
             }
         );
