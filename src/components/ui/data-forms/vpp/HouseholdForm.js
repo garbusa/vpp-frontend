@@ -30,14 +30,14 @@ export const HouseholdForm = observer((props) => {
             <Form.Item
                 label="Name des Haushaltes"
                 name="householdId"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <Input style={{width: 250}}/>
             </Form.Item>
             <Form.Item
                 label="Anzahl der Haushaltsmitglieder"
                 name="householdMemberAmount"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <InputNumber style={{width: 250}}/>
             </Form.Item>

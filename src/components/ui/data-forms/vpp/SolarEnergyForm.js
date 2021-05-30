@@ -32,29 +32,30 @@ export const SolarEnergyForm = observer((props) => {
             <Form.Item
                 label="Name der Erzeugungsanlage"
                 name="solarEnergyId"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <Input style={{width: 250}}/>
             </Form.Item>
             <Row>
                 <Col>
-                    <Tooltip placement={"left"} title={"Gibt die Neigung des Daches in Grad an"}>
+                    <Tooltip placement={"left"} title={"Gibt die Neigung des Daches in Grad an."}>
                         <Form.Item
                             style={{marginRight: 16}}
                             label="Neigung (Grad)"
                             name="slope"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Input style={{width: 250}}/>
                         </Form.Item>
                     </Tooltip>
                 </Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Nennleistung unter Standardbedingungen"}>
+                    <Tooltip placement={"right"}
+                             title={"Gibt die getestete Nennleistung unter Standardbedingungen an."}>
                         <Form.Item
                             label="Nennleistung (kWp)"
                             name="ratedCapacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
@@ -63,23 +64,23 @@ export const SolarEnergyForm = observer((props) => {
             </Row>
             <Row>
                 <Col>
-                    <Tooltip placement={"left"} title={"Breitengrad des Standorts"}>
+                    <Tooltip placement={"left"} title={"Gibt den Breitengrad des Standorts an."}>
                         <Form.Item
                             style={{marginRight: 16}}
                             label="Latitude"
                             name="latitude"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
                     </Tooltip>
                 </Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Längengrad des Standorts"}>
+                    <Tooltip placement={"right"} title={"Gibt den Längengrad des Standorts an."}>
                         <Form.Item
                             label="Longitude"
                             name="longitude"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
@@ -88,24 +89,25 @@ export const SolarEnergyForm = observer((props) => {
             </Row>
             <Row>
                 <Col>
-                    <Tooltip placement={"left"} title={"Ausrichtung der Anlage zur Himmelsrichtung in Grad"}>
+                    <Tooltip placement={"left"}
+                             title={"Gibt die Ausrichtung der Anlage zur Himmelsrichtung in Grad an."}>
                         <Form.Item
                             style={{marginRight: 16}}
                             label="Ausrichtung (Grad)"
                             name="alignment"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
                     </Tooltip>
                 </Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Gibt die aktuelle prozentuale Leistung der Anlage an"}>
+                    <Tooltip placement={"right"} title={"Gibt die aktuelle prozentuale Leistung der Anlage an."}>
                         <Form.Item
                             style={{marginRight: 16}}
                             label="Kapazität (%)"
                             name="capacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Slider style={{width: 250}}/>
                         </Form.Item>

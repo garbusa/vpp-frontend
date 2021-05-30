@@ -32,7 +32,7 @@ export const WindEnergyForm = observer((props) => {
             <Form.Item
                 label="Name der Erzeugungsanlage"
                 name="windEnergyId"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <Input style={{width: 250}}/>
             </Form.Item>
@@ -42,7 +42,7 @@ export const WindEnergyForm = observer((props) => {
                         style={{marginRight: 16}}
                         label="Wirkungsgrad (%)"
                         name="efficiency"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <Input style={{width: 250}}/>
                     </Form.Item>
@@ -51,7 +51,7 @@ export const WindEnergyForm = observer((props) => {
                     <Form.Item
                         label="Höhe (m)"
                         name="height"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
@@ -59,23 +59,23 @@ export const WindEnergyForm = observer((props) => {
             </Row>
             <Row>
                 <Col>
-                    <Tooltip placement={"left"} title={"Breitengrad des Standorts"}>
+                    <Tooltip placement={"left"} title={"Gibt den Breitengrad des Standorts an."}>
                         <Form.Item
                             style={{marginRight: 16}}
                             label="Latitude"
                             name="latitude"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
                     </Tooltip>
                 </Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Längengrad des Standorts"}>
+                    <Tooltip placement={"right"} title={"Gibt den Längengrad des Standorts an."}>
                         <Form.Item
                             label="Longitude"
                             name="longitude"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
@@ -88,17 +88,18 @@ export const WindEnergyForm = observer((props) => {
                         style={{marginRight: 16}}
                         label="Radius des Windrads (m)"
                         name="radius"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
                 </Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Gibt die aktuelle prozentuale Leistung der Anlage an"}>
+                    <Tooltip placement={"right"}
+                             title={"Gibt die aktuelle prozentuale Leistung der Windkraftanlage an."}>
                         <Form.Item
                             label="aktuelle Kapazität (%)"
                             name="capacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Slider style={{width: 250}}/>
                         </Form.Item>

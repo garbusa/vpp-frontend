@@ -35,7 +35,7 @@ export const StorageForm = observer((props) => {
                         style={{marginRight: 16}}
                         label="Name der Speicheranlage"
                         name="storageId"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <Input style={{width: 250}}/>
                     </Form.Item>
@@ -44,7 +44,7 @@ export const StorageForm = observer((props) => {
                     <Form.Item
                         label="Nennleistung (kWp)"
                         name="ratedPower"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
@@ -54,13 +54,13 @@ export const StorageForm = observer((props) => {
                 <Col>
                     <Col>
                         <Tooltip placement="left"
-                                 title={"Die C-Rate ist ein Wert der die Ladezeit einer Speicheranlage beschreibt. " +
-                                 "Eine Stunde entspricht den Wert 1.0, wobei zwei Stunden den Wert 0.5 entpricht."}>
+                                 title={"Die C-Rate ist ein Wert, der die Ladezeit einer Speicheranlage beschreibt. " +
+                                 "Eine Stunde entspricht dem Wert 1.0, wobei zwei Stunden dem Wert 0.5 entspricht."}>
                             <Form.Item
                                 style={{marginRight: 16}}
                                 label="C-Rate"
                                 name="loadTimeHour"
-                                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                             >
                                 <InputNumber style={{width: 250}}/>
                             </Form.Item>
@@ -69,11 +69,11 @@ export const StorageForm = observer((props) => {
                 </Col>
                 <Col>
                     <Tooltip placement="right"
-                             title={"Gibt den aktuellen Zustand des Speichers an. Bei 0 ist der Speicher leer und bei 100 voll."}>
+                             title={"Gibt den aktuellen Zustand des Speichers an. Bei 0% ist die Speicheranlage leer und bei 100% ist die Speicheranlage  voll."}>
                         <Form.Item
                             label="Kapazität (%)"
                             name="capacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Slider style={{width: 250}}/>
                         </Form.Item>

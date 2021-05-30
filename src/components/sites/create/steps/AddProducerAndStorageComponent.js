@@ -38,7 +38,7 @@ const AddProducerAndStorageComponent = observer((props) => {
 
     const onEnd = () => {
         store.vppStore.resetCreatingState();
-        enqueueSnackbar("Der Prozess wurde erfolgreich beendet", {variant: "success"});
+        enqueueSnackbar("Der Prozess wurde erfolgreich beendet.", {variant: "success"});
         history.push('/bearbeiten');
     };
 

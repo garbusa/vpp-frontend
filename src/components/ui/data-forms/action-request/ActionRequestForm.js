@@ -148,7 +148,7 @@ export const ActionRequestForm = observer(() => {
         <Row style={{marginTop: 16, marginBottom: 16}}>
             <Col>
                 <Alert
-                    message={"Die Zeitstempel werden im System bei der Abfragenbearbeitung auf eine Viertelstunde abgerundet. Deshalb kann es sein, dass sich die Zeitstempel nach dem Absenden überschneiden."}/>
+                    message={"Die Zeitstempel werden im System bei der Maßnahmenabfrage auf eine Viertelstunde abgerundet. Deshalb kann es sein, dass sich die Zeitstempel nach dem Absenden überschneiden."}/>
             </Col>
         </Row>
         <Form
@@ -160,7 +160,7 @@ export const ActionRequestForm = observer(() => {
             <Form.Item
                 label="Name der Maßnahmenabfrage"
                 name="actionRequestId"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <Input style={{width: 250}}/>
             </Form.Item>
@@ -171,7 +171,7 @@ export const ActionRequestForm = observer(() => {
                         style={{marginRight: 16}}
                         label="Energieengpass Schwelle (kW)"
                         name="shortageThreshold"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
@@ -180,7 +180,7 @@ export const ActionRequestForm = observer(() => {
                     <Form.Item
                         label="Energieüberschuss Schwelle (kW)"
                         name="overflowThreshold"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>

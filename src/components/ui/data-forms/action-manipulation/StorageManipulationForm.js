@@ -55,12 +55,12 @@ export const StorageManipulationForm = observer(() => {
         let exists = false;
 
         if (record.startTimestamp > record.endTimestamp) {
-            enqueueSnackbar("Startzeitstempel kann nicht größer als der Endzeitstempel sein", {variant: "error"});
+            enqueueSnackbar("Der Startzeitstempel kann nicht größer als der Endzeitstempel sein.", {variant: "error"});
         } else {
             vppStore.dashboardState.addingActionRequest.storageManipulations.forEach((manipulation) => {
                 if (dateRangeOverlaps(manipulation.startTimestamp, manipulation.endTimestamp, record.startTimestamp, record.endTimestamp) &&
                     manipulation.storageId === record.storageId) {
-                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden", {variant: "error"});
+                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden.", {variant: "error"});
                     exists = true;
                 }
             });
@@ -69,7 +69,7 @@ export const StorageManipulationForm = observer(() => {
                 vppStore.dashboardState.addingActionRequest.storageManipulations.push(
                     record
                 );
-                enqueueSnackbar("Manipulation wurde erfolgreich eingefügt", {variant: "success"});
+                enqueueSnackbar("Die Manipulation wurde erfolgreich eingefügt.", {variant: "success"});
                 onCancelStorageManipulation()
             }
         }
@@ -101,11 +101,11 @@ export const StorageManipulationForm = observer(() => {
                 vppStore.dashboardState.addingStorageManipulation.type = record.type;
                 checkAndRemoveDuplicateStorageManipulation(vppStore.dashboardState.addingActionRequest);
                 vppStore.dashboardState.addingActionRequest.storageManipulations.push(vppStore.dashboardState.addingStorageManipulation);
-                enqueueSnackbar("Manipulation wurde erfolgreich bearbeitet", {variant: "success"});
+                enqueueSnackbar("Die Manipulation wurde erfolgreich bearbeitet.", {variant: "success"});
                 onCancelStorageManipulation()
             }
         } else {
-            enqueueSnackbar("Bitte wähle eine Anlage aus der Tabelle", {variant: "error"})
+            enqueueSnackbar("Bitte wählen Sie eine Anlage aus der Tabelle.", {variant: "error"})
         }
     };
 
@@ -155,7 +155,7 @@ export const StorageManipulationForm = observer(() => {
                     <Form.Item
                         label="Startzeitstempel"
                         name="startTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         style={{marginRight: 16}}
                     >
                         <DatePicker
@@ -171,7 +171,7 @@ export const StorageManipulationForm = observer(() => {
                     <Form.Item
                         label="Endzeitstempel"
                         name="endTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <DatePicker
                             style={{width: 250}}
@@ -186,7 +186,7 @@ export const StorageManipulationForm = observer(() => {
             <Form.Item
                 label="Art der Manipulation"
                 name="type"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                 style={{marginRight: 16}}
             >
                 <Select

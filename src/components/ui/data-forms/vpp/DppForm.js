@@ -14,7 +14,7 @@ export const DppForm = observer((props) => {
         <Modal
             closable={false}
             destroyOnClose={true}
-            title={"Dez. Kraftwerk " + (editing ? "aktualisieren" : "hinzufügen")}
+            title={"Dezentrales Kraftwerk " + (editing ? "aktualisieren" : "hinzufügen")}
             visible={visible}
             footer={[
                 <Button key="back" onClick={onCancel}>
@@ -22,9 +22,8 @@ export const DppForm = observer((props) => {
                 </Button>
             ]}
         >
-            <p>Ein dez. Kraftwerk besteht zunächst nur aus einem Namen. Diesem Kraftwerk werden in den nächsten
-                Schritten
-                Erzeugungsanlagen und Speichersysteme hinzugefügt.</p>
+            <p>Ein dezentrales Kraftwerk besteht zunächst nur aus einem Namen. Diesem Kraftwerk werden in den nächsten
+                Schritten Erzeugungs- und Speicheranlagen hinzugefügt.</p>
             <Form
                 name="createHousehold"
                 initialValues={(editing ? dpp : {remember: false})}
@@ -34,7 +33,7 @@ export const DppForm = observer((props) => {
                 <Form.Item
                     label="Name des dez. Kraftwerks"
                     name="decentralizedPowerPlantId"
-                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                 >
                     <Input style={{width: 250}}/>
                 </Form.Item>

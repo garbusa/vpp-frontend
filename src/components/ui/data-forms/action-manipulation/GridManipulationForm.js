@@ -26,11 +26,11 @@ export const GridManipulationForm = observer(() => {
         let exists = false;
 
         if (record.startTimestamp > record.endTimestamp) {
-            enqueueSnackbar("Startzeitstempel kann nicht größer als der Endzeitstempel sein", {variant: "error"});
+            enqueueSnackbar("Der Startzeitstempel kann nicht größer als der Endzeitstempel sein.", {variant: "error"});
         } else {
             vppStore.dashboardState.addingActionRequest.gridManipulations.forEach((manipulation) => {
                 if (dateRangeOverlaps(manipulation.startTimestamp, manipulation.endTimestamp, record.startTimestamp, record.endTimestamp)) {
-                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden", {variant: "error"});
+                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden.", {variant: "error"});
                     exists = true;
                 }
             });
@@ -39,7 +39,7 @@ export const GridManipulationForm = observer(() => {
                 vppStore.dashboardState.addingActionRequest.gridManipulations.push(
                     record
                 );
-                enqueueSnackbar("Manipulation wurde erfolgreich eingefügt", {variant: "success"});
+                enqueueSnackbar("Die Manipulation wurde erfolgreich eingefügt.", {variant: "success"});
                 onCancelGridManipulation()
             }
         }
@@ -69,7 +69,7 @@ export const GridManipulationForm = observer(() => {
             vppStore.dashboardState.addingGridManipulation.ratedPower = record.ratedPower;
             checkAndRemoveDuplicateGridManipulation(vppStore.dashboardState.addingGridManipulation);
             vppStore.dashboardState.addingActionRequest.gridManipulations.push(vppStore.dashboardState.addingGridManipulation);
-            enqueueSnackbar("Manipulation wurde erfolgreich bearbeitet", {variant: "success"});
+            enqueueSnackbar("Die Manipulation wurde erfolgreich bearbeitet.", {variant: "success"});
             onCancelGridManipulation();
         }
 
@@ -123,7 +123,7 @@ export const GridManipulationForm = observer(() => {
                     <Form.Item
                         label="Startzeitstempel"
                         name="startTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         style={{marginRight: 16}}
                     >
                         <DatePicker
@@ -139,7 +139,7 @@ export const GridManipulationForm = observer(() => {
                     <Form.Item
                         label="Endzeitstempel"
                         name="endTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <DatePicker
                             style={{width: 250}}
@@ -156,7 +156,7 @@ export const GridManipulationForm = observer(() => {
                     <Form.Item
                         label="Art der Manipulation"
                         name="type"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         style={{marginRight: 16}}
                     >
                         <Select
@@ -174,7 +174,7 @@ export const GridManipulationForm = observer(() => {
                     <Form.Item
                         label="Leistung (kW)"
                         name="ratedPower"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber
                             style={{width: 250}}

@@ -143,7 +143,7 @@ export const EditVppForm = observer((props) => {
                 }
             );
         } else {
-            enqueueSnackbar("Beim editieren oder hinzufügen eines DK ist etwas schief gelaufen", {variant: "error"});
+            enqueueSnackbar("Beim Editieren oder Hinzufügen eines DK ist etwas schief gelaufen.", {variant: "error"});
         }
     };
 
@@ -174,7 +174,7 @@ export const EditVppForm = observer((props) => {
                 }
             );
         } else {
-            enqueueSnackbar("Beim editieren oder hinzufügen eines Haushaltes ist etwas schief gelaufen", {variant: "error"});
+            enqueueSnackbar("Beim Editieren oder Hinzufügen eines Haushaltes ist etwas schief gelaufen.", {variant: "error"});
         }
     };
 
@@ -280,8 +280,6 @@ export const EditVppForm = observer((props) => {
                     }
                 }
             )
-        } else {
-            console.log("unknown type");
         }
     };
 
@@ -326,10 +324,7 @@ export const EditVppForm = observer((props) => {
                     enqueueSnackbar(result.message, {variant: result.variant});
                 }
             );
-        } else {
-            console.log("unknown type");
         }
-
     };
 
     const onOpenEditStorage = (storageId) => {
@@ -436,7 +431,7 @@ export const EditVppForm = observer((props) => {
                     }
                 });
             } else {
-                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                enqueueSnackbar("Beim Speichern des Wasserkraftwerks ist etwas schief gelaufen.", {variant: "error"})
             }
         } else if (state.isEditingWater) {
             store.vppStore.updateWater(state.waterEnergyId,
@@ -451,7 +446,7 @@ export const EditVppForm = observer((props) => {
                 }
             });
         } else {
-            enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            enqueueSnackbar("Beim Speichern des Wasserkraftwerks ist etwas schief gelaufen.", {variant: "error"})
         }
     };
 
@@ -480,7 +475,7 @@ export const EditVppForm = observer((props) => {
                     }
                 });
             } else {
-                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                enqueueSnackbar("Beim Speichern der Windkraftanlage ist etwas schief gelaufen.", {variant: "error"})
             }
         } else if (state.isEditingWind) {
             store.vppStore.updateWind(state.windEnergyId,
@@ -495,7 +490,7 @@ export const EditVppForm = observer((props) => {
                 }
             });
         } else {
-            enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            enqueueSnackbar("Beim Speichern der Windkraftanlage ist etwas schief gelaufen.", {variant: "error"})
         }
 
     };
@@ -525,7 +520,7 @@ export const EditVppForm = observer((props) => {
                     }
                 });
             } else {
-                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                enqueueSnackbar("Beim Speichern der Solaranlage ist etwas schief gelaufen.", {variant: "error"})
             }
         } else if (state.isEditingSolar) {
             store.vppStore.updateSolar(state.solarEnergyId,
@@ -540,7 +535,7 @@ export const EditVppForm = observer((props) => {
                 }
             });
         } else {
-            enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            enqueueSnackbar("Beim Speichern der Solaranlage ist etwas schief gelaufen.", {variant: "error"})
         }
     };
 
@@ -569,7 +564,7 @@ export const EditVppForm = observer((props) => {
                     }
                 });
             } else {
-                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                enqueueSnackbar("Beim Speichern der alternativen Erzeugungsanlage ist etwas schief gelaufen.", {variant: "error"})
             }
         } else if (state.isEditingOther) {
             store.vppStore.updateOther(state.otherEnergyId,
@@ -584,7 +579,7 @@ export const EditVppForm = observer((props) => {
                 }
             });
         } else {
-            enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            enqueueSnackbar("Beim Speichern der alternativen Erzeugungsanlage ist etwas schief gelaufen.", {variant: "error"})
         }
     };
 
@@ -613,7 +608,7 @@ export const EditVppForm = observer((props) => {
                     }
                 });
             } else {
-                enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+                enqueueSnackbar("Beim Speichern der Speicheranlage ist etwas schief gelaufen.", {variant: "error"})
             }
         } else if (state.isEditingStorage) {
             store.vppStore.updateStorage(state.storageId,
@@ -628,7 +623,7 @@ export const EditVppForm = observer((props) => {
                 }
             });
         } else {
-            enqueueSnackbar("Beim Speichern ist etwas schief gelaufen", {variant: "error"})
+            enqueueSnackbar("Beim Speichern der Speicheranlage ist etwas schief gelaufen.", {variant: "error"})
         }
     };
 

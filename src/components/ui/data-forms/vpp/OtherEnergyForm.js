@@ -35,7 +35,7 @@ export const OtherEnergyForm = observer((props) => {
                             style={{marginRight: 16}}
                             label="Name der Erzeugungsanlage"
                             name="otherEnergyId"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Input style={{width: 250}}/>
                         </Form.Item>
@@ -44,18 +44,18 @@ export const OtherEnergyForm = observer((props) => {
                         <Form.Item
                             label="Nennleistung (kWp)"
                             name="ratedCapacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber style={{width: 250}}/>
                         </Form.Item>
                     </Col>
                 </Row>
-                <Tooltip placement={"left"} title={"Gibt die aktuelle prozentuale Leistung der Anlage an"}>
+                <Tooltip placement={"left"} title={"Gibt die aktuelle prozentuale Leistung der Anlage an."}>
                     <Form.Item
                         style={{marginRight: 16}}
                         label="Kapazität (%)"
                         name="capacity"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <Slider style={{width: 250}}/>
                     </Form.Item>

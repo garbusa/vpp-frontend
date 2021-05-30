@@ -48,7 +48,7 @@ const DashboardComponent = observer(() => {
                 <Row style={{marginTop: 16, marginBottom: 16}}>
                     <Col>
                         <Alert
-                            description={"Falls Ihr gewünschtes virtuelle Kraftwerk nicht gelistet ist, sollten Sie den \"veröffentlicht\"-Status überprüfen. Diesen Status können Sie auf der Webseite \"VK bearbeiten\" editieren."}/>
+                            description={"Falls Ihr gewünschtes virtuelles Kraftwerk nicht aufgelistet ist, sollten Sie den \"veröffentlicht\"-Status überprüfen. Diesen Status können Sie auf der Webseite \"VK bearbeiten\" editieren."}/>
                     </Col>
                 </Row>
                 {vppStore.activeVpps.map((vpp) => {
@@ -77,7 +77,7 @@ const DashboardComponent = observer(() => {
                 <Row>
                     <Col>
                         <Alert
-                            description={"Es konnten keine aktive virtuelle Kraftwerke gefunden werden. Bitte erstellen Sie ein VK oder veröffentlichen Sie ein existierendes."}/>
+                            description={"Es konnten keine aktiven virtuelle Kraftwerke gefunden werden. Bitte erstellen Sie ein virtuelles Kraftwerk oder veröffentlichen Sie ein Existierendes."}/>
                     </Col>
                 </Row>
             </div>

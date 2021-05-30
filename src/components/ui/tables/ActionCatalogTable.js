@@ -86,7 +86,7 @@ export const ActionCatalogTable = observer(() => {
             <Col>
                 <h3>Handlungsempfehlungekataloge</h3>
                 <Alert
-                    description="Für diese Maßnahmenabfrage existieren keine Handlungsempfehlungekataloge"
+                    description="Für diese Maßnahmenabfrage existieren keine Handlungsempfehlungekataloge."
                     type="info"
                 />
             </Col>

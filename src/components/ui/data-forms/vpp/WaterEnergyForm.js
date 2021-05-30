@@ -31,7 +31,7 @@ export const WaterEnergyForm = observer((props) => {
             <Form.Item
                 label="Name der Erzeugungsanlage"
                 name="waterEnergyId"
-                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
             >
                 <Input style={{width: 250}}/>
             </Form.Item>
@@ -41,7 +41,7 @@ export const WaterEnergyForm = observer((props) => {
                         style={{marginRight: 16}}
                         label="Wirkungsgrad (%)"
                         name="efficiency"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
@@ -50,7 +50,7 @@ export const WaterEnergyForm = observer((props) => {
                     <Form.Item
                         label="Wasserdichte (kg/m^3)"
                         name="density"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
                         <InputNumber style={{width: 250}}/>
                     </Form.Item>
@@ -61,14 +61,14 @@ export const WaterEnergyForm = observer((props) => {
                     style={{marginRight: 16}}
                     label="Fallgeschwindigkeit (m/s)"
                     name="gravity"
-                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                 >
                     <InputNumber style={{width: 250}}/>
                 </Form.Item></Col>
                 <Col><Form.Item
                     label="effektive Fallhöhe (m)"
                     name="height"
-                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                 >
                     <InputNumber style={{width: 250}}/>
                 </Form.Item></Col>
@@ -78,16 +78,16 @@ export const WaterEnergyForm = observer((props) => {
                     style={{marginRight: 16}}
                     label="Volumenstrom (m^3/s)"
                     name="volumeFlow"
-                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                    rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                 >
                     <InputNumber style={{width: 250}}/>
                 </Form.Item></Col>
                 <Col>
-                    <Tooltip placement={"right"} title={"Gibt die derzeitige prozentuale Leistung der Anlage an"}>
+                    <Tooltip placement={"right"} title={"Gibt die derzeitige prozentuale Leistung der Anlage an."}>
                         <Form.Item
                             label="aktuelle Kapazität (%)"
                             name="capacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <Slider style={{width: 250}}/>
                         </Form.Item>

@@ -41,7 +41,7 @@ export const ActionRequestCatalogModal = observer(() => {
             } else if (vppStore.dashboardState.selectedActionCatalog.problemType === "SHORTAGE") {
                 return <div>
                     <ul>
-                        <li>Abspeisung der duchschnittlich benötigten Energie aus dem öffentlichen Netz</li>
+                        <li>Abspeisung der durchschnittlich benötigten Energie aus dem öffentlichen Netz</li>
                         <li>Hinzuschalten neuer Erzeugungsanlagen</li>
                     </ul>
 

@@ -116,12 +116,12 @@ export const ProducerManipulationForm = observer((props) => {
         let exists = false;
 
         if (record.startTimestamp > record.endTimestamp) {
-            enqueueSnackbar("Startzeitstempel kann nicht größer als der Endzeitstempel sein", {variant: "error"});
+            enqueueSnackbar("Der Startzeitstempel kann nicht größer als der Endzeitstempel sein.", {variant: "error"});
         } else {
             vppStore.dashboardState.addingActionRequest.producerManipulations.forEach((manipulation) => {
                 if (dateRangeOverlaps(manipulation.startTimestamp, manipulation.endTimestamp, record.startTimestamp, record.endTimestamp) &&
                     manipulation.producerId === record.producerId) {
-                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden", {variant: "error"});
+                    enqueueSnackbar("Die Zeitstempel dürfen sich bei existierenden Manipulationen nicht überschneiden.", {variant: "error"});
                     exists = true;
                 }
             });
@@ -130,7 +130,7 @@ export const ProducerManipulationForm = observer((props) => {
                 vppStore.dashboardState.addingActionRequest.producerManipulations.push(
                     record
                 );
-                enqueueSnackbar("Manipulation wurde erfolgreich eingefügt", {variant: "success"});
+                enqueueSnackbar("Die Manipulation wurde erfolgreich eingefügt.", {variant: "success"});
                 onCancelProducerManipulation()
             }
         }
@@ -163,12 +163,12 @@ export const ProducerManipulationForm = observer((props) => {
                 vppStore.dashboardState.addingProducerManipulation.capacity = record.capacity;
                 checkAndRemoveDuplicateProducerManipulation(vppStore.dashboardState.addingProducerManipulation);
                 vppStore.dashboardState.addingActionRequest.producerManipulations.push(vppStore.dashboardState.addingProducerManipulation);
-                enqueueSnackbar("Manipulation wurde erfolgreich bearbeitet", {variant: "success"});
+                enqueueSnackbar("Die Manipulation wurde erfolgreich bearbeitet.", {variant: "success"});
                 onCancelProducerManipulation()
             }
 
         } else {
-            enqueueSnackbar("Bitte wähle eine Anlage aus der Tabelle", {variant: "error"})
+            enqueueSnackbar("Bitte wählen Sie eine Anlage aus der Tabelle.", {variant: "error"})
         }
     };
 
@@ -220,7 +220,7 @@ export const ProducerManipulationForm = observer((props) => {
                     <Form.Item
                         label="Startzeitstempel"
                         name="startTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         style={{marginRight: 16}}
                     >
 
@@ -239,7 +239,7 @@ export const ProducerManipulationForm = observer((props) => {
                     <Form.Item
                         label="Endzeitstempel"
                         name="endTimestamp"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                     >
 
                         <DatePicker
@@ -260,7 +260,7 @@ export const ProducerManipulationForm = observer((props) => {
                     <Form.Item
                         label="Art der Manipulation"
                         name="type"
-                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                        rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         style={{marginRight: 16}}
                     >
                         <Select
@@ -276,12 +276,12 @@ export const ProducerManipulationForm = observer((props) => {
                 </Col>
                 <Col>
                     <Tooltip placement={"right"}
-                             title={"Gibt an um wie viele Prozentpunkte die Anlage hochgefahren/runtergefahren werden soll." +
+                             title={"Gibt an, um wie viele Prozentpunkte die Anlage hochgefahren/runtergefahren werden soll." +
                              " Wenn die aktuelle Kapazität bei 100% liegt und Sie diese um 20% runterfahren möchten, resultiert daraus eine simulierte Kapazität von 80%."}>
                         <Form.Item
                             label="Änderung der Kapazität"
                             name="capacity"
-                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein'}]}
+                            rules={[{required: true, message: 'Dieses Feld muss ausgefüllt sein.'}]}
                         >
                             <InputNumber
                                 style={{width: 250}}

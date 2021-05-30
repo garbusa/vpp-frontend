@@ -70,7 +70,7 @@ const AddDppsComponent = observer((props) => {
 
     const onEnd = () => {
         store.vppStore.resetCreatingState();
-        enqueueSnackbar("Der Prozess wurde erfolgreich beendet", {variant: "success"});
+        enqueueSnackbar("Der Prozess wurde erfolgreich beendet.", {variant: "success"});
         history.push('/bearbeiten');
     };
 
@@ -88,14 +88,15 @@ const AddDppsComponent = observer((props) => {
         <div className={'create-vpp'}>
             <CreateStepComponent currentStep={1}/>
             <h2 style={{marginTop: 32}}>Schritt 1: Hinzufügen dezentraler Kraftwerke</h2>
-            <p>Ein virtuelles Kraftwerk beinhaltet beliebig viele dez. Kraftwerke. In diesem Schritt werden diese dem
+            <p>Ein virtuelles Kraftwerk beinhaltet beliebig viele dezentrale Kraftwerke. In diesem Schritt werden diese
+                dem
                 virtuellen Kraftwerk hinzugefügt.</p>
             <Table dataSource={store.vppStore.dpps} columns={columns}/>
 
             <Row style={{marginTop: 16}}>
                 <Col>
                     <Button onClick={onOpenAddDppModal} type="primary" icon={<PlusOutlined/>}>
-                        Dez. Kraftwerk hinzufügen
+                        Dezentrales Kraftwerk hinzufügen
                     </Button>
                 </Col>
             </Row>

@@ -47,7 +47,7 @@ const CreateComponent = observer((props) => {
                 }
             })
         } else {
-            enqueueSnackbar("Der Name des VK muss min. 4 Zeichen enthalten", {variant: "error"})
+            enqueueSnackbar("Der Name des VK muss min. 4 Zeichen enthalten.", {variant: "error"})
         }
     };
 
@@ -69,7 +69,7 @@ const CreateComponent = observer((props) => {
                             name="virtualPowerPlantId"
                             rules={[{
                                 required: true,
-                                message: 'Dieses Feld muss ausgefüllt sein'
+                                message: 'Dieses Feld muss ausgefüllt sein.'
                             }]}
                         >
                             <Input style={{width: 250}}/>

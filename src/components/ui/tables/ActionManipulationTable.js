@@ -141,7 +141,7 @@ export const ActionManipulationTable = observer(() => {
             <Col>
                 <h3>Manipulationsübersicht</h3>
                 <Alert
-                    description="Für diese Maßnahmenabfrage existieren keine Manipulationen"
+                    description="Für diese Maßnahmenabfrage existieren keine Manipulationen."
                     type="info"
                 />
             </Col>

@@ -91,7 +91,7 @@ const EditVppFormComponent = observer((props) => {
             return <Row>
                 <Col>
                     <Alert style={{marginTop: 16}}
-                           description="Wähle Sie ein virtuelles Kraftwerk aus, um es zu editieren."/>
+                           description="Wähle Sie ein virtuelles Kraftwerk aus, um es editieren zu können."/>
                 </Col>
             </Row>
         } else {
