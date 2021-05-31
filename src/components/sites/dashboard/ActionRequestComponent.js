@@ -20,7 +20,7 @@ export const ActionRequestComponent = observer(() => {
         if (vppStore.dashboardState.selectedActionRequest.status === "FINISHED") {
             return <Row style={{marginTop: 32}}>
                 <Col>
-                    <p>Auf dieser Webseite können Sie die die Handlungsempfehlungen aus den Katalogen entnehmen,<br/>
+                    <p>Auf dieser Webseite können Sie die Handlungsempfehlungen aus den Katalogen entnehmen,<br/>
                         sowie die durchgeführten Manipulationen einsehen. Die Grafik gibt die Tagesprognose für die
                         nächsten 24 Stunden aus.</p>
                 </Col>
